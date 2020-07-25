@@ -1,0 +1,215 @@
+
+
+* {
+    border: 1px solid purple;
+  }
+  
+
+
+html{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    user-select: none;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    user-select: none;
+
+    font-family: tahoma;
+    text-align: center;
+    
+    perspective: 1000px;
+    background-color: rgb(22, 21, 21);
+    color: #fffff8;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+/* ***************** Athlete Box ***************** */
+#AthleteBox{
+    width: 490px;
+    height: 210px;
+    font-size: 21px;
+    text-align: center;
+
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #d1150e, #2c1a17);
+}
+
+/* Buttons for within the athlete box */
+.sign-up-button, .login-button{
+    background-color: rgb(73, 73, 73);
+    color: white;
+    cursor: pointer;
+    opacity: 0.8;
+    text-align: center;
+    font-family: tahoma;
+    font-size: 18px;
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+/* Add some hover effects to buttons */
+.signup-form-container, .close-button:hover, .sign-up-button:hover, .login-button:hover {
+    opacity: 1;
+}
+/* ***************** Athlete Box ***************** */
+
+
+
+
+
+
+/* ***************** SIGN UP FORM ***************** */
+/* div */
+.form-popup-signup{
+    display: none;
+    margin: auto;
+    width: 55%;
+    height: 70%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 9;
+}
+
+.signup-title{
+    padding: 3px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+
+/* the html form input boxes */
+.signup-form-container input[type=text], input[type=password]{
+    width: 75%;
+    height: 75%;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    padding: 9px;
+    border-radius: 5px;
+}
+
+.signup-form-container label{
+    display: block;
+    text-align: left;
+    padding-left: 30px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+
+/* When the inputs get focus, do something */
+.signup-form-container input[type=text]:focus, input[type=password]:focus{
+    background-color: #ddd;
+    outline: none;
+    width: 90%;
+    height: 90%;
+}
+
+.register-btn{
+    height: 30%;
+    width: 30%;
+    padding: 8px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    opacity: .8;
+    font-size: 110%;
+}
+
+.register-btn:hover{
+    opacity: 1;
+}
+/* ***************** SIGN UP FORM ***************** */
+
+
+
+
+.close-button{
+    opacity: .8;
+    cursor: pointer;
+    margin-top: 1px;
+    padding-top: 0px;
+}
+
+
+/* ***************** LOGIN FORM ***************** */
+/* div */
+.form-popup-login{
+    display: none;
+    margin: auto;
+    width: 45%;
+    height: 45%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 9;
+}
+
+.login-title{
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 38px
+}
+
+
+/* the html form input boxes */
+.login-form-container input[type=text]{
+    width: 75%;
+    height: 75%;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    padding: 9px;
+    border-radius: 5px;
+}
+
+.login-form-container label{
+    display: block;
+    text-align: left;
+    padding-left: 30px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+
+/* When the inputs get focus, do something */
+.login-form-container input[type=text]:focus{
+    background-color: #ddd;
+    outline: none;
+    width: 90%;
+    height: 90%;
+}
+
+.login-btn{
+    height: 30%;
+    width: 30%;
+    padding: 8px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    opacity: .8;
+    font-size: 110%;
+}
+
+.login-btn:hover{
+    opacity: 1;
+}
+/* ***************** LOGIN FORM ***************** */
+
+
+
+
+
+
+
