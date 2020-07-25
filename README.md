@@ -1,3 +1,3 @@
 # AthleteApp:Home-Signup-Login-Singlepage Branch
 
-## Description: Currently has 3 functions of the app on one page. Enentually we need to make a cool transition for the center card to be able to switch between each function seemlessly
+## Description: Seperates the Home Sign up and login into 3 different webpages to make my life easier at the moment
