@@ -1,3 +1,3 @@
-# AthleteApp
+# AthleteApp:Home-Signup-Login-Singlepage Branch
 
-## Description: This Web/Mobile App allows users to track any exercise they can think of and can be rewarded through leveling up.
+## Description: Currently has 3 functions of the app on one page. Enentually we need to make a cool transition for the center card to be able to switch between each function seemlessly
