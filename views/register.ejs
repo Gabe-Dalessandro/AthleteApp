@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> My Athlete App Sign Up</title>
+        <meta charset="UTF-8">
+        <link href="/css/register.css" rel="stylesheet">
+    </head>
+
+
+    <body>
+        <ul class="register-errors">
+            <% if(typeof errorMessages != 'undefined') { %>
+                <% errorMessages.forEach(error => { %>
+                    <li><%= error.message %></li>
+                <% }) %>
+            <% } %>
+        </ul>
+
+        <!-- ************* SIGN UP FORM ************* -->
+        <div class="form-popup-signup" id="SignUpForm">
+            <form action="/homepage">   
+                <button class="close-button" style="float: right;"> X </button>
+            </form>  
+            <h1 class="signup-title">Register: New Athlete</h1>
+            <form class="signup-form-container" action='/register/create-new-athlete' method="POST" target="_self">
+                <label for="user_fname">First Name: </label>
+                <input type="text" name="user_fname" placeholder="Your First Name..." required>
+
+                <label for="user_lname">Last Name: </label> 
+                <input type="text" name="user_lname", placeholder="Your Last Name..." required>
+
+                <label for="user_email">Email address:  </label> 
+                <input type="text" name="user_email" placeholder="newathlete@gmail.com" required> 
+
+                <label for="password">Password: </label> 
+                <input type="password" name="password" placeholder="Enter Password..." required>
+
+                <label for="password2">Confirm Password: </label> 
+                <input type="password" name="password2" placeholder="Re-enter Password..." required><br> <br>
+
+                <button type="submit" class="register-btn">Register</button><br>
+                <!-- <button type="close-button" class="btn cancel" onclick="closeSignUp()">Close</button> -->
+            </form>
+        </div>
+
+
+    </body>
+
+    <script src="/views.js"></script>
+
+</html>

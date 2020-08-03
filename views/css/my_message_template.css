@@ -1,0 +1,32 @@
+
+#messages{
+    width: 55%;
+}
+
+.error{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 350;
+    font-size: 16px;
+    list-style-type: none;
+    text-align: left;
+    
+    height: 23px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    border-radius: 4px;
+}
+
+.success{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 350;
+    font-size: 16px;
+    list-style-type: none;
+    text-align: left;
+
+    height: 23px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    border-radius: 4px;
+}

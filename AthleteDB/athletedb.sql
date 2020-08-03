@@ -9,6 +9,9 @@
 
 
 
+-- ******** Data Model is found at: https://my.vertabelo.com/drive
+
+
 
 -- *********** DELETING DB IN SPECIFIC ORDER ***********
 
