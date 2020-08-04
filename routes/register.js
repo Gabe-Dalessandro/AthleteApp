@@ -13,7 +13,7 @@ const { pool } = require('../lib/dbConfig.js');
 //Does whatever type of request for the root directory ("/homepage")
 router.route("/")
     .get( (req, res, {errors}) => {
-        console.log("Loading Register page");
+        console.log("\n****** LOADING REGISTER PAGE ******\n");
         res.render("/Users/gabe/Desktop/AthleteApp/views/register.ejs", {errors});
     });
 

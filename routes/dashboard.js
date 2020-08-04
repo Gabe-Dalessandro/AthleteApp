@@ -7,10 +7,23 @@ let router = express.Router();
 
 //Does whatever type of request for the root directory ("/dashboard")
 router.route("/")
-    .get((req, res) => {
+    .get(ensureAuthentication, (req, res) => {
         console.log("\n****** LOADING DASHBOARD PAGE ******\n")
         res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', { user: req.user.athlete_first_name });
     });
     
+
+
+
+function ensureAuthentication(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    else {
+        req.flash('error', "Please login before continuing!");
+        res.redirect('/login');
+    }
+}
+
 
 module.exports = router;
