@@ -9,6 +9,7 @@ const flash = require("connect-flash"); //allows us to send messages between web
 const session = require("express-session"); //allows us to send messages between webpages
 const passport = require("passport");
 const bodyParser = require('body-parser');
+var pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.set('view-engine', 'ejs'); //Allows us to use .ejs files
 app.set('views', path.join(__dirname, 'views')); //Reads webpages
 app.use(express.static(__dirname + '/views'));
 
+//***** CONNECTING TO PSQL DB *****
+const { pool } = require('./lib/dbConfig.js');
 
 //***** MIDDLEWARE *****
     //the server will use this middleware to accomplish different tasks
@@ -25,10 +28,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.urlencoded({extended: false})); //allows use to send private info (ie passwords) from the front end to our database
 app.use(flash());
-app.use(session({
+app.use(session({ //stores user data even after they logout
+    store: new pgSession({
+        pool : pool,         
+        tableName : 'session'   
+      }),
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
@@ -54,8 +62,6 @@ app.use("/register", register);
 app.use("/login", login);
 
 
-//***** CONNECTING TO PSQL DB *****
-const { pool } = require('./lib/dbConfig.js');
 
 
 
@@ -77,6 +83,11 @@ app.get('*', (req, res, next) => {
     res.locals.user = req.user || null;
     next();
 });
+
+
+// app.get('/dashboard', (req, res)=> {
+//     res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs');
+// });
 
 
 //Serving the Homepage at the start

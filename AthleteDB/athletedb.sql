@@ -20,9 +20,8 @@ DROP TABLE IF EXISTS athlete CASCADE;
 DROP TABLE IF EXISTS exercise_type CASCADE;
 DROP TABLE IF EXISTS exercise CASCADE;
 DROP TABLE IF EXISTS tracked_exercises CASCADE;
-
-
-
+DROP TABLE IF EXISTS rewards CASCADE;
+DROP TABLE IF EXISTS session CASCADE;
 
 
 
@@ -96,13 +95,76 @@ CREATE TABLE tracked_exercises (
 
 
 
+-- Table: rewards
+CREATE TABLE public.rewards
+(
+    reward_id integer NOT NULL,
+    reward_name varchar(200) NOT NULL,
+    reward_company_id integer NOT NULL,
+    reward_company_name varchar(100) NOT NULL,
+    PRIMARY KEY (reward_id)
+);
+
+ALTER TABLE public.rewards
+    OWNER to postgres;
+
+
+
+INSERT INTO rewards (reward_id, reward_name, reward_company_id, reward_company_name)
+	VALUES (1, '10% OFF NEXT ONLINE ORDER!', 1, 'Nike');
+
+INSERT INTO rewards (reward_id, reward_name, reward_company_id, reward_company_name)
+	VALUES (2, '$20 TOWARDS NEXT FOOTWEAR PURCHASE!', 2, 'Adidas');
 
 
 
 
 
 
+-- Table: earned_rewards
+CREATE TABLE public.earned_rewards
+(
+    earned_reward_id integer NOT NULL,
+    athlete_id integer NOT NULL,
+    reward_id integer NOT NULL,
+    PRIMARY KEY (earned_reward_id),
+    FOREIGN KEY (athlete_id) 
+      REFERENCES athlete(athlete_id)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE,
+   FOREIGN KEY (reward_id) 
+      REFERENCES rewards(reward_id)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE  
+);
+
+ALTER TABLE public.earned_rewards
+    OWNER to postgres;
 
 
+
+
+INSERT INTO earned_rewards (earned_reward_id, athlete_id, reward_id)
+	VALUES (1, 27, 1);
+	
+INSERT INTO earned_rewards (earned_reward_id, athlete_id, reward_id)
+	VALUES (2, 27, 2);
+
+
+
+
+
+
+-- Table: session,  able to store user data within this database for a set amount of time
+CREATE TABLE "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+	"sess" json NOT NULL,
+	"expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 

@@ -23,7 +23,7 @@ body{
     
     perspective: 1000px;
     background-color: rgb(22, 21, 21);
-    color: #fffff8;
+    color: #ffffff;
 
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@ body{
     width: 490px;
     height: 210px;
     border-radius: 7px;
-    background: linear-gradient(to bottom right, #d1150e, #2c1a17);
+    background: linear-gradient(to bottom right, #aa0ed1, #2c1a17);
     box-shadow: 9px 9px 2px #242323;
 
     display: flex;
@@ -63,7 +63,7 @@ body{
 
 .register-form, .login-form{
     width: 35%;
-    height: 120%;
+    height: 140%;
 }
 
 /* Buttons for within the athlete box */

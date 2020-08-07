@@ -1,0 +1,242 @@
+/* Possible Fonts:
+    - univers font */
+
+* {
+    border: 1px solid purple;
+    margin: 0px;
+    border-radius: 3px;
+}
+
+body{
+    background-color: rgb(22, 21, 21);
+    color: #fffff8;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 320;
+}
+
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 25% repeat(4, 1fr) 20%; 
+    grid-template-rows: 65px repeat(4, auto);
+    grid-template-areas: 
+        'nav  nav nav nav nav nav'
+        'menu box box box box bar'
+        'menu box box box box bar'
+        'menu box box box box bar'
+        'menu box box box box bar';
+    grid-gap: 10px;
+
+    height: 99vh;
+    width: 100%;
+}
+
+
+
+/* ********** NAVIGATION BAR ********** */
+.navigation{
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: 25% 27.5% 27.5% 20%;
+    grid-template-areas: 
+        'logo mydash comm acct';
+}
+    .navigation > div {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo{
+        grid-area: logo;
+        font-weight: 550;
+        font-size: 25px;
+    }
+
+    .my-dashboard{
+        grid-area: mydash;
+        font-weight: 320;
+        font-size: 25px;
+    }
+
+    .community{
+        grid-area: comm;
+        font-weight: 320;
+        font-size: 25px;
+    }
+
+    .account-info{
+        display: flex;
+        grid-area: acct;
+        font-weight: 320;
+        font-size: 18px;
+    }
+
+    #account-info-manage-account{
+        cursor: pointer;
+        color: white;
+        margin-top: 1px;
+        width: auto;
+        text-decoration: none;
+
+        transition: transform .2s;
+    }
+
+    #account-info-manage-account:hover{
+        color: white;
+        transform: scale(1.02);
+    }
+ 
+    /* #manage-account-menu{
+        display: none;
+        width: 150px;
+        height: auto;
+        background-color: rgb(22, 21, 21);
+        z-index: 1;
+    }
+
+    #manage-account-menu > a{
+        border: none;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: white;
+        text-decoration: none;
+    } */
+    
+/* ************************************* */
+
+
+
+
+
+/* ********** DASHBOARD MENU [LEFT] ********** */
+.dash-menu{
+    grid-area: menu;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+    .dash-menu-header{
+        text-align: center; 
+        margin: 10px;
+        padding: 4px;
+        font-size: 25px;
+    }
+
+    .dash-menu-tabs-box{
+        margin-top: 34px;
+        margin-left: 5px;
+        margin-right: 5px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        border-spacing: 8px;
+        line-height: 40px;
+    }
+
+    .dash-menu-tabs-box > div, a{
+        width: 92%;
+        margin-top: 6px;
+        margin-left: 6px;
+        font-size: 18px;
+        cursor: pointer;
+
+        transition: transform .2s;
+    }
+
+    .dash-menu-tabs-box > div:hover, a:hover{
+        transform: scale(1.05);
+    }
+
+    .dash-menu-tabs-box > a > p{
+        padding-left: 8px;
+    }
+    .dash-menu-tabs-box > a{
+        border: none;
+        font-size: 20px;
+        margin-left: 8px;
+        color: white;
+        text-decoration: none;
+    }
+/* ******************************************* */
+
+
+
+
+/* ********** SELECTION BOX [middle] ********** */
+.select-box{
+    grid-area: box;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+    .select-box-title{
+        align-self: left;
+        margin-top: 6px;
+        margin-left: 14px;
+        width: 38%;
+        height: 55px;
+
+        font-size: 30px;
+
+        display:flex;
+        align-items: center;
+    }
+        #select-box-title-text{
+            margin-left: 8px;
+        }
+    .select-box-main-dynamic{
+        height: 85%;
+        width: 95%;
+        margin-left: 14px;
+        margin-top: 8px;
+    }
+/* ******************************************** */
+
+
+
+
+.game-bar{
+    grid-area: bar;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+    .progression-box{
+        height: 8%;
+        width: 85%;
+        margin-top: 10px;
+
+        text-align: center;
+    }
+        #progression-box-text{
+            padding: 4px;
+            margin: 4px;
+            font-size: 25px;
+        }
+    .icon-box{
+        height: 20%;
+        width: 75%;
+        margin-top: 15px;
+    }
+    .level-bar{
+        height: 8%;
+        width: 87%;
+        margin-top: 15px;
+    }
+    .game-bar-profile-stats{
+        height: 60%;
+        width: 87%;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }

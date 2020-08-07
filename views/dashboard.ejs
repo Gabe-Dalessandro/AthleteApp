@@ -3,19 +3,137 @@
     <head>
         <title> My Athlete App Dashboard</title>
         <meta charset="UTF-8">
-        <!-- <link href="/Users/gabe/Desktop/server/index.css" rel="stylesheet"> -->
+        <link href="/css/dashboard.css" rel="stylesheet">
     </head>
 
 
-    <body>
-        <h1>The New Athlete: Dashboard</h1>
-        <h2>Hello <%= user %></h2>
-        <!-- <a href="dashboard/logout">Logout</a> -->
 
+    <body>
+        <!-- <h1>The New Athlete: Dashboard</h1>
+        <h2>Hello <%= user %></h2> -->
+        <!-- <a href="dashboard/logout">Logout</a> -->
+        <div id="athlete-id" style="display:none"><%= user.athlete_id %></div>
+        <div id="athlete-object" style="display:none"><%= JSON.stringify(user) %></div>
+
+        <div class="grid-container">
+            
+            <!-- ***** Navigation Bar ***** -->
+            <div class="navigation">
+                <div class="logo">
+                    <p class="logo-text">Logo</p>
+                </div>
+                <div class="my-dashboard">
+                    <p class="my-dashboard-text">MY DASHBOARD</p>
+                </div>
+                <div class="community">
+                    <p class="community-text">COMMUNITY</p>
+                </div>
+                <div class="account-info">
+                    <p id="account-info-name"><%= user.athlete_first_name %></p>
+                    <a href="/dashboard/logout" id="account-info-manage-account">Manage Account</a>
+                    <!-- <div id="manage-account-menu">
+                        <a>Profile Settings</a>
+                        <a href="/dashboard/logout">Logout</a>
+                    </div> -->
+                </div>
+            </div>
+            <!-- ************************** -->
+
+
+            
+            <!-- ***** Dashboard Menu ***** -->
+            <div class="dash-menu">
+                <p class="dash-menu-header">Dashboard Menu</p>
+
+                <div class=dash-menu-tabs-box>
+                    <a href="/dashboard/my-stats" id="my-stats">
+                        <p id="my-stats-text">My Stats</p>
+                    </a>
+
+                    <!-- href="/dashboard/my-workouts" --> 
+                    <a  id="my-workouts">
+                        <p id="my-workouts-text">My Workouts</p>
+                    </a>
+
+                    <a href="/dashboard/my-rewards" id="my-rewards">
+                        <p id="my-rewards-text">My Rewards</p>
+                    </a>
+
+                    <!-- href="/dashboard/my-team" --> 
+                    <a id="my-team">
+                        <p id="my-team-text">My Team</p>
+                    </a>
+                </div>
+            </div>
+            <!-- ************************** -->
+
+
+
+            <!-- ***** Selection Box ***** -->
+            <div class="select-box">
+                <div class="select-box-title"> 
+                    <% if (typeof trackedExercises != 'undefined') { %> 
+                        <p id="select-box-title-text">My Stats</p>
+                    <% } %>   
+
+                    <% if (typeof earnedRewards != 'undefined') { %> 
+                        <p id="select-box-title-text">My Rewards</p>
+                    <% } %> 
+
+
+                    
+                </div>
+
+                <div class="select-box-main-dynamic">
+                    <!-- Tracked Exercises -->
+                    <ul class="tracked-exercises">
+                        <% if (typeof trackedExercises != 'undefined') { %> 
+                            <% trackedExercises.forEach( exercise => { %>
+                                <li> <pre>Exercise: <%= exercise.exercise_name %>   Days Tracked: <%= exercise.total_time_tracked %></pre></li>
+                            <% }) %>
+                        <% } %>
+                    </ul>
+
+                    <!-- Earned Rewards -->
+                    <ul class="earned-rewards">
+                        <% if (typeof earnedRewards != 'undefined') { %> 
+                            <% earnedRewards.forEach( reward => { %>
+                                <li> <pre><%= reward.company_name %>   <%= reward.reward_name %></pre></li>
+                            <% }) %>
+                        <% } %>
+                    </ul>
+
+                    
+                </div>
+            </div>
+            <!-- ************************** -->
+
+
+
+
+
+
+            <!-- ***** Gamification Box ***** -->
+            <div class="game-bar">
+                
+                <div class="progression-box">
+                    <p id="progression-box-text">Progression</p>
+                </div>
+
+                <div class="icon-box"></div>
+
+                <div class="level-bar"></div>
+
+                <div class="game-bar-profile-stats"></div>
+
+            </div>
+            <!-- **************************** -->
+
+        </div>
 
         
     </body>
 
-    <!-- <script src="app.js"></script> -->
+    <script src="/dynamic/dashboard_views.js"></script>
 
 </html>

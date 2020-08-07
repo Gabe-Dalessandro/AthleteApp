@@ -15,3 +15,14 @@ FROM
 	INNER JOIN athlete ON athlete.athlete_id = tracked_exercises.athlete_id
 WHERE 
 	athlete.athlete_first_name = 'Gabe'
+	
+	
+	
+	
+-- gets all the rewards for am athlete	
+CREATE OR REPLACE VIEW athletes_earned_rewards AS
+SELECT CONCAT(rewards.reward_company_name, ' Reward: ') as company_name, rewards.reward_name 
+FROM 
+	earned_rewards INNER JOIN rewards ON rewards.reward_id = earned_rewards.reward_id
+	INNER JOIN athlete ON athlete.athlete_id = earned_rewards.athlete_id
+WHERE athlete.athlete_id = 27
