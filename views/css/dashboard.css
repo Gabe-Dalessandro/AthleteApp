@@ -38,6 +38,7 @@ body{
     grid-area: nav;
     display: grid;
     grid-template-columns: 25% 27.5% 27.5% 20%;
+    grid-template-rows: 65px;
     grid-template-areas: 
         'logo mydash comm acct';
 }
@@ -51,9 +52,20 @@ body{
 
     .logo{
         grid-area: logo;
+        /* height:50%;
+        width: 50%; */
+
+
         font-weight: 550;
         font-size: 25px;
     }
+        .logo > img {
+            width: 95%;
+            height: 90%;
+            object-fit: cover; 
+            margin: auto;
+            display: block;
+        }
 
     .my-dashboard{
         grid-area: mydash;
@@ -137,31 +149,25 @@ body{
         border-spacing: 8px;
         line-height: 40px;
     }
+        .dash-menu-tabs-box > a{
+            width: 92%;
+            margin-top: 6px;
+            margin-left: 8px;
+            font-size: 18px;
+            color: white;
 
-    .dash-menu-tabs-box > div, a{
-        width: 92%;
-        margin-top: 6px;
-        margin-left: 6px;
-        font-size: 18px;
-        cursor: pointer;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform .2s;
+        }
 
-        transition: transform .2s;
-    }
+        .dash-menu-tabs-box > a:hover{
+            transform: scale(1.05);
+        }
+            .dash-menu-tabs-box-text{
+                padding-left: 8px;
+            }
 
-    .dash-menu-tabs-box > div:hover, a:hover{
-        transform: scale(1.05);
-    }
-
-    .dash-menu-tabs-box > a > p{
-        padding-left: 8px;
-    }
-    .dash-menu-tabs-box > a{
-        border: none;
-        font-size: 20px;
-        margin-left: 8px;
-        color: white;
-        text-decoration: none;
-    }
 /* ******************************************* */
 
 
@@ -198,6 +204,97 @@ body{
         margin-left: 14px;
         margin-top: 8px;
     }
+
+        .select-box-main-dynamic-my-stats{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: flex-start;
+        }
+        /* #track-new-exercise-button{
+            background: white;
+            width: 30%;
+            height: 7%;
+
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+
+            text-decoration: none;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #track-new-exercise-button:hover{
+            cursor: pointer;
+        }
+        #track-new-exercise-button-text {
+            border: none;
+            color: rgb(179, 24, 140);
+        } */
+
+        .track-new-exercise-button {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+
+            width: 200px;
+            /* width: 30%; */
+            height: 6%;
+
+            border-radius: 4px;
+            background: linear-gradient(to right, #dd1ddd, #3f3b3b);
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 18px;
+            /* padding: 20px; */
+            
+            transition: all 0.4s;
+            cursor: pointer;
+          }
+            .track-new-exercise-button > span {
+                border: none;
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.4s;
+                margin-top: 4px;
+            }
+            .track-new-exercise-button > span:after {
+                content: '\00bb';
+                position: absolute;
+                opacity: 0;
+                top: 0;
+                right: -20px;
+                transition: 0.5s;
+            }
+            .track-new-exercise-button:hover > span {
+                padding-right: 25px;
+            }
+            .track-new-exercise-button:hover > span:after {
+                opacity: 1;
+                right: 0;
+            }
+
+
+
+
+
+
+
+        
+    /* *********************************** */
+    /* *********************************** */
+    /* *********************************** */
+    /* *********************************** */
+
 /* ******************************************** */
 
 

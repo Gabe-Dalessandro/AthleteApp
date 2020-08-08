@@ -20,7 +20,8 @@
             <!-- ***** Navigation Bar ***** -->
             <div class="navigation">
                 <div class="logo">
-                    <p class="logo-text">Logo</p>
+                    <!-- <p class="logo-text">Logo</p> -->
+                    <img src="/images/logo.png">
                 </div>
                 <div class="my-dashboard">
                     <p class="my-dashboard-text">MY DASHBOARD</p>
@@ -30,7 +31,7 @@
                 </div>
                 <div class="account-info">
                     <p id="account-info-name"><%= user.athlete_first_name %></p>
-                    <a href="/dashboard/logout" id="account-info-manage-account">Manage Account</a>
+                    <a href="/dashboard/logout" id="account-info-manage-account">Manage Account/Logout</a>
                     <!-- <div id="manage-account-menu">
                         <a>Profile Settings</a>
                         <a href="/dashboard/logout">Logout</a>
@@ -47,21 +48,21 @@
 
                 <div class=dash-menu-tabs-box>
                     <a href="/dashboard/my-stats" id="my-stats">
-                        <p id="my-stats-text">My Stats</p>
+                        <p class="dash-menu-tabs-box-text">My Stats</p>
                     </a>
 
                     <!-- href="/dashboard/my-workouts" --> 
-                    <a  id="my-workouts">
-                        <p id="my-workouts-text">My Workouts</p>
+                    <a href="/dashboard/my-stats" id="my-workouts">
+                        <p class="dash-menu-tabs-box-text">My Workouts</p>
                     </a>
 
                     <a href="/dashboard/my-rewards" id="my-rewards">
-                        <p id="my-rewards-text">My Rewards</p>
+                        <p class="dash-menu-tabs-box-text">My Rewards</p>
                     </a>
 
                     <!-- href="/dashboard/my-team" --> 
-                    <a id="my-team">
-                        <p id="my-team-text">My Team</p>
+                    <a href="/dashboard/my-rewards" id="my-team">
+                        <p class="dash-menu-tabs-box-text">My Team</p>
                     </a>
                 </div>
             </div>
@@ -86,13 +87,27 @@
 
                 <div class="select-box-main-dynamic">
                     <!-- Tracked Exercises -->
-                    <ul class="tracked-exercises">
-                        <% if (typeof trackedExercises != 'undefined') { %> 
-                            <% trackedExercises.forEach( exercise => { %>
-                                <li> <pre>Exercise: <%= exercise.exercise_name %>   Days Tracked: <%= exercise.total_time_tracked %></pre></li>
-                            <% }) %>
-                        <% } %>
-                    </ul>
+                    <% if (typeof trackedExercises != 'undefined') { %> 
+                    <div class="select-box-main-dynamic-my-stats">
+                        <ul class="tracked-exercises">
+                                <% trackedExercises.forEach( exercise => { %>
+                                    <li> <pre>Exercise: <%= exercise.exercise_name %>   Days Tracked: <%= exercise.total_time_tracked %></pre></li>
+                                <% }) %>
+                            
+                        </ul>
+
+                        <div class="button_cont">
+                            <a class="track-new-exercise-button" href="/track-new-exercise">
+                                <span>Track New
+                            </a>
+                        </div>
+                        <!-- <a href="/dashboard/track-new-exercise" id="track-new-exercise-button">
+                            <p id="track-new-exercise-button-text">Track new Exercise</p>
+                        </a> -->
+                        
+                    </div>    
+                    <% } %>
+                    <!-- ***************** -->
 
                     <!-- Earned Rewards -->
                     <ul class="earned-rewards">

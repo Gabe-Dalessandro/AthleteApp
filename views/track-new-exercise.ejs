@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> My Athlete App Track New Exercise</title>
+        <meta charset="UTF-8">
+        <link href="/css/track-new-exercise.css" rel="stylesheet">
+    </head>
+
+
+    <body>
+        <ul class="register-errors">
+            <% if(typeof errorMessages != 'undefined') { %>
+                <% errorMessages.forEach(error => { %>
+                    <li><%= error.message %></li>
+                <% }) %>
+            <% } %>
+        </ul>
+
+        <!-- ************* SIGN UP FORM ************* -->
+        <div class="form-popup-signup" id="SignUpForm">
+            <form action="/dashboard">   
+                <button class="close-button" style="float: right;"> X </button>
+            </form>  
+            <h1 class="signup-title">Tracking New Exercise</h1>
+            <form class="signup-form-container" action='/track-new-exercise/submit' method="POST" target="_self">
+                <label for="user_fname">Exercise Type: (*Optional: But Can Help Narrow Search*) </label>
+                <input type="text" name="user_fname" placeholder="Strength/Cardio/Sports...">
+
+                <label for="user_lname">Exercise Name: </label> 
+                <input type="text" name="user_lname", placeholder="Dumbell Pec flys..." required>
+
+                <label for="user_email">Initial Tracking Date:  </label> 
+                <input type="date" name="user_email" placeholder="" required> 
+
+                <!-- <label for="password">Password: </label> 
+                <input type="password" name="password" placeholder="Enter Password..." required>
+
+                <label for="password2">Confirm Password: </label> 
+                <input type="password" name="password2" placeholder="Re-enter Password..." required><br> <br> -->
+
+                <button type="submit" class="register-btn">Submit</button><br>
+                <!-- <button type="close-button" class="btn cancel" onclick="closeSignUp()">Close</button> -->
+            </form>
+        </div>
+
+
+    </body>
+
+    <!-- <script src="/views.js"></script> -->
+
+</html>

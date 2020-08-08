@@ -55,6 +55,19 @@ router.route("/logout")
     });
 
 
+router.route('/dashboard/track-new-exercise')
+    .post(ensureAuthentication, (req, res)=> {
+
+    });
+
+
+
+
+
+
+
+
+
 
 
 

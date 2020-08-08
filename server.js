@@ -56,10 +56,12 @@ const homepage = require("./routes/homepage");
 const register = require("./routes/register");
 const login = require("./routes/login");
 const dashboard = require("./routes/dashboard"); 
+const track_new_exercise = require("./routes/track-new-exercise");
 app.use("/homepage", homepage); //ROUTING: anything that uses the /homepage url, go to "./routes/homepage"
 app.use("/dashboard", dashboard);
 app.use("/register", register);
 app.use("/login", login);
+app.use("/track-new-exercise", track_new_exercise);
 
 
 
