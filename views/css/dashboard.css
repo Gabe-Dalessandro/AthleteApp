@@ -1,339 +1,320 @@
 /* Possible Fonts:
     - univers font */
 
-* {
-    border: 1px solid purple;
-    margin: 0px;
-    border-radius: 3px;
-}
-
-body{
-    background-color: rgb(22, 21, 21);
-    color: #fffff8;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 320;
-}
-
-
-.grid-container{
-    display: grid;
-    grid-template-columns: 25% repeat(4, 1fr) 20%; 
-    grid-template-rows: 65px repeat(4, auto);
-    grid-template-areas: 
-        'nav  nav nav nav nav nav'
-        'menu box box box box bar'
-        'menu box box box box bar'
-        'menu box box box box bar'
-        'menu box box box box bar';
-    grid-gap: 10px;
-
-    height: 99vh;
-    width: 100%;
-}
-
-
-
-/* ********** NAVIGATION BAR ********** */
-.navigation{
-    grid-area: nav;
-    display: grid;
-    grid-template-columns: 25% 27.5% 27.5% 20%;
-    grid-template-rows: 65px;
-    grid-template-areas: 
-        'logo mydash comm acct';
-}
-    .navigation > div {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    * {
+        border: 1px solid purple;
+        margin: 0px;
+        border-radius: 3px;
     }
-
-    .logo{
-        grid-area: logo;
-        /* height:50%;
-        width: 50%; */
-
-
-        font-weight: 550;
-        font-size: 25px;
-    }
-        .logo > img {
-            width: 95%;
-            height: 90%;
-            object-fit: cover; 
-            margin: auto;
-            display: block;
-        }
-
-    .my-dashboard{
-        grid-area: mydash;
-        font-weight: 320;
-        font-size: 25px;
-    }
-
-    .community{
-        grid-area: comm;
-        font-weight: 320;
-        font-size: 25px;
-    }
-
-    .account-info{
-        display: flex;
-        grid-area: acct;
-        font-weight: 320;
-        font-size: 18px;
-    }
-
-    #account-info-manage-account{
-        cursor: pointer;
-        color: white;
-        margin-top: 1px;
-        width: auto;
-        text-decoration: none;
-
-        transition: transform .2s;
-    }
-
-    #account-info-manage-account:hover{
-        color: white;
-        transform: scale(1.02);
-    }
- 
-    /* #manage-account-menu{
-        display: none;
-        width: 150px;
-        height: auto;
-        background-color: rgb(22, 21, 21);
-        z-index: 1;
-    }
-
-    #manage-account-menu > a{
-        border: none;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        color: white;
-        text-decoration: none;
-    } */
     
-/* ************************************* */
-
-
-
-
-
-/* ********** DASHBOARD MENU [LEFT] ********** */
-.dash-menu{
-    grid-area: menu;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-    .dash-menu-header{
-        text-align: center; 
-        margin: 10px;
-        padding: 4px;
-        font-size: 25px;
+    body{
+        background-color: rgb(22, 21, 21);
+        color: #fffff8;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 320;
     }
-
-    .dash-menu-tabs-box{
-        margin-top: 34px;
-        margin-left: 5px;
-        margin-right: 5px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-
-        border-spacing: 8px;
-        line-height: 40px;
+    
+    
+    .grid-container{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr) 18%; 
+        grid-template-rows: 60px repeat(4, auto);
+        grid-template-areas: 
+            'nav  nav  nav  nav  nav  nav'
+            'dash dash dash dash dash bar'
+            'dash dash dash dash dash bar'
+            'dash dash dash dash dash bar'
+            'dash dash dash dash dash bar';
+        grid-gap: 10px;
+    
+        height: 99vh;
+        width: 100%;
     }
-        .dash-menu-tabs-box > a{
-            width: 92%;
-            margin-top: 6px;
-            margin-left: 8px;
-            font-size: 18px;
-            color: white;
-
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform .2s;
+    
+    
+    
+    /* ********** NAVIGATION BAR ********** */
+    .navigation{
+        grid-area: nav;
+        display: grid;
+        grid-template-columns: 25% 56% 19%;
+        grid-template-rows: 60px;
+        grid-template-areas: 
+            'logo menu acct';
+    }
+    
+        /* LOGO */
+        .logo{
+            grid-area: logo;
+    
+            font-weight: 550;
+            font-size: 25px;
         }
-
-        .dash-menu-tabs-box > a:hover{
-            transform: scale(1.05);
-        }
-            .dash-menu-tabs-box-text{
-                padding-left: 8px;
+            .logo > img {
+                width: 95%;
+                height: 90%;
+                object-fit: cover; 
+                margin: auto;
+                display: block;
             }
-
-/* ******************************************* */
-
-
-
-
-/* ********** SELECTION BOX [middle] ********** */
-.select-box{
-    grid-area: box;
-    margin-bottom: 10px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-}
-    .select-box-title{
-        align-self: left;
-        margin-top: 6px;
-        margin-left: 14px;
-        width: 38%;
-        height: 55px;
-
-        font-size: 30px;
-
-        display:flex;
-        align-items: center;
-    }
-        #select-box-title-text{
-            margin-left: 8px;
+            
+    
+        /* DASHBOARD MENU */
+        .dash-menu{
+            grid-area: menu;
+            
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
         }
-    .select-box-main-dynamic{
-        height: 85%;
-        width: 95%;
-        margin-left: 14px;
-        margin-top: 8px;
-    }
-
-        .select-box-main-dynamic-my-stats{
-            position: relative;
-            height: 100%;
-            width: 100%;
+        
+            .dash-menu > a{
+                font-size: 18px;
+                color: white;
+    
+                cursor: pointer;
+                text-decoration: none;
+                transition: transform .2s;
+            }
+    
+            .dash-menu > a:hover{
+                transform: scale(1.05);
+            }
+    
+        
+        /* ACCOUNT INFO */
+        .account-info{
+            grid-area: acct;
             
             display: flex;
             flex-direction: column;
-            justify-content: start;
-            align-items: flex-start;
-        }
-        /* #track-new-exercise-button{
-            background: white;
-            width: 30%;
-            height: 7%;
-
-            position: absolute;
-            bottom: 5%;
-            right: 5%;
-
-            text-decoration: none;
-            
-            display: flex;
-            align-items: center;
             justify-content: center;
-        }
-        #track-new-exercise-button:hover{
-            cursor: pointer;
-        }
-        #track-new-exercise-button-text {
-            border: none;
-            color: rgb(179, 24, 140);
-        } */
+            align-items: center;
 
-        .track-new-exercise-button {
-            position: absolute;
-            bottom: 5%;
-            right: 5%;
-
-            width: 200px;
-            /* width: 30%; */
-            height: 6%;
-
-            border-radius: 4px;
-            background: linear-gradient(to right, #dd1ddd, #3f3b3b);
-            border: none;
-            color: #FFFFFF;
-            text-align: center;
-            text-transform: uppercase;
+            font-weight: 320;
             font-size: 18px;
-            /* padding: 20px; */
-            
-            transition: all 0.4s;
-            cursor: pointer;
-          }
-            .track-new-exercise-button > span {
-                border: none;
-                cursor: pointer;
-                display: inline-block;
-                position: relative;
-                transition: 0.4s;
-                margin-top: 4px;
-            }
-            .track-new-exercise-button > span:after {
-                content: '\00bb';
-                position: absolute;
-                opacity: 0;
-                top: 0;
-                right: -20px;
-                transition: 0.5s;
-            }
-            .track-new-exercise-button:hover > span {
-                padding-right: 25px;
-            }
-            .track-new-exercise-button:hover > span:after {
-                opacity: 1;
-                right: 0;
-            }
-
-
-
-
-
-
-
-        
-    /* *********************************** */
-    /* *********************************** */
-    /* *********************************** */
-    /* *********************************** */
-
-/* ******************************************** */
-
-
-
-
-.game-bar{
-    grid-area: bar;
-    margin-right: 10px;
-    margin-bottom: 10px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-    .progression-box{
-        height: 8%;
-        width: 85%;
-        margin-top: 10px;
-
-        text-align: center;
-    }
-        #progression-box-text{
-            padding: 4px;
-            margin: 4px;
-            font-size: 25px;
         }
-    .icon-box{
-        height: 20%;
-        width: 75%;
-        margin-top: 15px;
+    
+        #account-info-manage-account{
+            cursor: pointer;
+            color: white;
+            margin-top: 1px;
+            width: auto;
+            text-decoration: none;
+    
+            transition: transform .2s;
+        }
+    
+        #account-info-manage-account:hover{
+            color: white;
+            transform: scale(1.02);
+        }
+     
+        /* #manage-account-menu{
+            display: none;
+            width: 150px;
+            height: auto;
+            background-color: rgb(22, 21, 21);
+            z-index: 1;
+        }
+    
+        #manage-account-menu > a{
+            border: none;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            color: white;
+            text-decoration: none;
+        } */
+        
+    /* ************************************* */
+    
+    
+    
+    
+    
+
+    
+    
+
+    /* ********** Main Dashboard [MIDDLE] ********** */
+    .main-dash{
+        grid-area: dash;
+        margin-bottom: 10px;
+        margin-left: 10px;
     }
-    .level-bar{
-        height: 8%;
-        width: 87%;
-        margin-top: 15px;
+        .main-dash-title{
+            margin-top: 6px;
+            margin-left: 10px;
+            width: 30%;
+            height: 50px;
+    
+            font-size: 30px;
+    
+            display:flex;
+            align-items: center;
+        }
+            #main-dash-title-text{
+                margin-left: 8px;
+            }
+        
+        
+        .main-dash-dynamic{
+            height: 88%;
+            width: 98%;
+
+            margin-top: 10px;
+            margin-left: 10px;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+            /* *** MY WORKOUTS  *** */
+            /* Left Side */
+            .main-dash-dynamic-workout-stats{
+                width: 72%;
+                height: 100%;
+   
+            }
+                .main-dash-dynamic-workout-stats-upper{
+                    height: 8%;
+                    width: 70%;
+
+                    display:flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                }
+                    .main-dash-dynamic-workout-stats-title{
+                        width: 70%;
+                        height: 100%;
+
+                        display:flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .add-new-workout{
+                        width: 8%;
+                        height: 90%;
+
+                        margin-left: 8px;
+                        text-align: center;
+
+                        font-size: 30px;
+                    }
+                    .add-new-workout:hover{
+                        width: 8%;
+                        height: 90%;
+
+                        margin-left: 8px;
+                        text-align: center;
+
+                        font-size: 30px;
+                        cursor: pointer;
+                        transition: transform .2s;
+                        transform: scale(1.05);
+                    }
+                /* .main-dash-dynamic-workout-stats-middle{
+                    width: 98%;
+                } */
+                .workout-table{
+                    width: 98%;
+                    border-collapse: collapse;
+                    margin-top: 8px;
+                }
+                    th, td{
+                        text-align: left;
+                        padding: 6px;
+                        border-collapse: collapse;
+                        border-color: none;
+                    }
+                    .done{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    tr:nth-child(even){
+                        background-color: rgb(48, 51, 51);
+                    }
+
+                    /* .main-dash-dynamic-workout-stats-middle > div{
+                        height: 75%;
+
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 10px;
+                    } */
+                    /* .workout-stats{
+                        width: 100%;
+                        height: 8%;
+
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                    }
+                        .workout-stats-fields{
+                            
+                        } */
+
+
+            /* Right Side */
+            .main-dash-dynamic-weekly-stats{
+                width: 28%;
+                height: 100%;
+
+            }
+    
+    
+
+    
+
+    /* ******************************************** */
+    
+    
+    
+
+
+    /* ********** PROGRESSION BAR ********** */
+    .game-bar{
+        grid-area: bar;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .game-bar-profile-stats{
-        height: 60%;
-        width: 87%;
-        margin-top: 15px;
-        margin-bottom: 8px;
-    }
+        .progression-box{
+            height: 8%;
+            width: 85%;
+            margin-top: 10px;
+    
+            text-align: center;
+        }
+            #progression-box-text{
+                padding: 4px;
+                margin: 4px;
+                font-size: 25px;
+            }
+        .icon-box{
+            height: 20%;
+            width: 75%;
+            margin-top: 15px;
+        }
+        .level-bar{
+            height: 8%;
+            width: 87%;
+            margin-top: 15px;
+        }
+        .game-bar-profile-stats{
+            height: 60%;
+            width: 87%;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+    /* ******************************************** */

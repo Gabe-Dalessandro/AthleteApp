@@ -8,13 +8,13 @@
 
 
     <body>
-        <ul class="register-errors">
+        <div class="register-errors">
             <% if(typeof errorMessages != 'undefined') { %>
                 <% errorMessages.forEach(error => { %>
-                    <li><%= error.message %></li>
+                    <p class="register-errors-error"><%= error.message %></p>
                 <% }) %>
             <% } %>
-        </ul>
+        </div>
 
         <!-- ************* SIGN UP FORM ************* -->
         <div class="form-popup-signup" id="SignUpForm">

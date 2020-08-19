@@ -26,3 +26,20 @@ FROM
 	earned_rewards INNER JOIN rewards ON rewards.reward_id = earned_rewards.reward_id
 	INNER JOIN athlete ON athlete.athlete_id = earned_rewards.athlete_id
 WHERE athlete.athlete_id = 27
+
+
+
+-- gets the workouts and the exercises in the workouts for a single user
+SELECT athlete.athlete_first_name, workout.workout_id, workout.workout_name,
+exercise.exercise_name, tracked_exercises.weight, tracked_exercises.sets, tracked_exercises.reps,
+TO_CHAR(tracked_workouts.date_completed :: DATE, 'Mon dd, yyyy')
+FROM 
+	tracked_workouts 
+	INNER JOIN athlete ON athlete.athlete_id = tracked_workouts.athlete_id
+	INNER JOIN workout ON tracked_workouts.workout_id = workout.workout_id
+	INNER JOIN workout_exercises ON workout.workout_id = workout_exercises.workout_id
+	INNER JOIN exercise ON workout_exercises.exercise_id = exercise.exercise_id
+	INNER JOIN tracked_exercises ON athlete.athlete_id = tracked_exercises.athlete_id
+		AND exercise.exercise_id = tracked_exercises.exercise_id
+WHERE 
+	athlete.athlete_id = 27

@@ -9,26 +9,40 @@
 
 
     <body>
-        <!-- <h1>The New Athlete: Dashboard</h1>
-        <h2>Hello <%= user %></h2> -->
-        <!-- <a href="dashboard/logout">Logout</a> -->
         <div id="athlete-id" style="display:none"><%= user.athlete_id %></div>
         <div id="athlete-object" style="display:none"><%= JSON.stringify(user) %></div>
 
         <div class="grid-container">
             
-            <!-- ***** Navigation Bar ***** -->
+
+            <!-- ******** Navigation Bar ******** -->
             <div class="navigation">
+                
+                <!-- Logo -->
                 <div class="logo">
-                    <!-- <p class="logo-text">Logo</p> -->
                     <img src="/images/logo.png">
                 </div>
-                <div class="my-dashboard">
-                    <p class="my-dashboard-text">MY DASHBOARD</p>
+
+                <!-- Dashboard Options -->
+                <div class="dash-menu">
+                    <a href="/dashboard/my-workouts" id="my-workouts">
+                        <p class="dash-menu-text">My Workouts</p>
+                    </a>
+                    
+                    <a href="/dashboard/my-stats" id="my-stats">
+                        <p class="dash-menu-text">My Stats</p>
+                    </a>
+
+                    <a href="/dashboard/my-rewards" id="my-rewards">
+                        <p class="dash-menu-text">My Rewards</p>
+                    </a>
+
+                    <a href="/dashboard/my-team" id="my-team">
+                        <p class="dash-menu-text">My Team</p>
+                    </a>
                 </div>
-                <div class="community">
-                    <p class="community-text">COMMUNITY</p>
-                </div>
+
+                <!-- Account Info -->
                 <div class="account-info">
                     <p id="account-info-name"><%= user.athlete_first_name %></p>
                     <a href="/dashboard/logout" id="account-info-manage-account">Manage Account/Logout</a>
@@ -41,87 +55,161 @@
             <!-- ************************** -->
 
 
-            
-            <!-- ***** Dashboard Menu ***** -->
-            <div class="dash-menu">
-                <p class="dash-menu-header">Dashboard Menu</p>
-
-                <div class=dash-menu-tabs-box>
-                    <a href="/dashboard/my-stats" id="my-stats">
-                        <p class="dash-menu-tabs-box-text">My Stats</p>
-                    </a>
-
-                    <!-- href="/dashboard/my-workouts" --> 
-                    <a href="/dashboard/my-stats" id="my-workouts">
-                        <p class="dash-menu-tabs-box-text">My Workouts</p>
-                    </a>
-
-                    <a href="/dashboard/my-rewards" id="my-rewards">
-                        <p class="dash-menu-tabs-box-text">My Rewards</p>
-                    </a>
-
-                    <!-- href="/dashboard/my-team" --> 
-                    <a href="/dashboard/my-rewards" id="my-team">
-                        <p class="dash-menu-tabs-box-text">My Team</p>
-                    </a>
-                </div>
-            </div>
-            <!-- ************************** -->
+     
 
 
 
-            <!-- ***** Selection Box ***** -->
-            <div class="select-box">
-                <div class="select-box-title"> 
+            <!-- ********** Main Dashboard ********** -->
+
+            <div class="main-dash">
+
+                <!-- Title Box -->
+                <div class="main-dash-title"> 
+                    <!-- My-Stats -->
                     <% if (typeof trackedExercises != 'undefined') { %> 
-                        <p id="select-box-title-text">My Stats</p>
+                        <p id="main-dash-title-text">My Stats</p>
                     <% } %>   
 
-                    <% if (typeof earnedRewards != 'undefined') { %> 
-                        <p id="select-box-title-text">My Rewards</p>
+                    <!-- My-Workouts -->
+                    <% if (typeof trackedWorkouts != 'undefined') { %> 
+                        <p id="main-dash-title-text">My Workouts</p>
                     <% } %> 
 
+                    <!-- My-Rewards -->
+                    <% if (typeof earnedRewards != 'undefined') { %> 
+                        <p id="main-dash-title-text">My Rewards</p>
+                    <% } %> 
 
-                    
+                    <!-- My-Team -->
+                    <% if (typeof teamData != 'undefined') { %> 
+                        <p id="main-dash-title-text">My Team</p>
+                    <% } %> 
                 </div>
 
-                <div class="select-box-main-dynamic">
-                    <!-- Tracked Exercises -->
-                    <% if (typeof trackedExercises != 'undefined') { %> 
-                    <div class="select-box-main-dynamic-my-stats">
-                        <ul class="tracked-exercises">
-                                <% trackedExercises.forEach( exercise => { %>
-                                    <li> <pre>Exercise: <%= exercise.exercise_name %>   Days Tracked: <%= exercise.total_time_tracked %></pre></li>
-                                <% }) %>
+                <div class="main-dash-dynamic">
+                
+                    <!-- Tracked Workouts -->
+                    <% if (typeof trackedWorkouts != 'undefined') { %> 
+                        <!-- [Left Side] Workout Selection -->
+                        <div class="main-dash-dynamic-workout-stats">
+                            <!-- Upper Area -->
+                            <div class="main-dash-dynamic-workout-stats-upper"> 
+                                <% if (trackedWorkouts.length) { %>
+                                    <div class="main-dash-dynamic-workout-stats-title"> 
+                                        <p> <%= trackedWorkouts[0].workout_name %>  <%= trackedWorkouts[0].date_completed %></p>
+                                    </div>
+                                    
+                                <% } else {%>
+                                    <div class="main-dash-dynamic-workout-stats-title"> 
+                                        <p> Add New Workout! </p>
+                                    </div>
+                                <% } %>
+                                <a class="add-new-workout">+</a>
+                            </div>
+
+                            <!-- Middle Area: hold workout info -->
+                            <% if (trackedWorkouts.length) { %>
+                                <!-- http://tabulator.info/ -->
+                                <table class="workout-table">
+                                    <tr>
+                                        <th>Exercise</th>
+                                        <th>Sets</th>
+                                        <th>Weight</th>
+                                        <th>Reps/Time</th>
+                                        <th>Done</th>
+                                    </tr>
+                                    <% trackedWorkouts.forEach( exercise => { %>
+                                        <tr>
+                                            <td><%= exercise.exercise_name %></td>
+                                            <td><%= exercise.sets %></td>
+                                            <td><%= exercise.weight %></td>
+                                            <td><%= exercise.reps %></td>
+                                            <td class="done"><input type="checkbox"></td>
+                                        </tr> 
+                                    <% }) %>
+                                </table>
+
+                               
+                               
+                               
+                               
+                               
+                                <!-- <div class="main-dash-dynamic-workout-stats-middle"> -->
+                                <!-- V2 -->
+                                <!-- <div class="workout-info-exercise">
+                                    <p>Exercise</p>
+                                    <% trackedWorkouts.forEach( exercise => { %>
+                                        <p><%= exercise.exercise_name %></p> 
+                                    <% }) %>
+                                </div>
+
+                                <div class="workout-info-sets">
+                                    <p>Sets</p>
+                                    <% trackedWorkouts.forEach( exercise => { %>
+                                        <p><%= exercise.sets %></p> 
+                                    <% }) %>
+                                </div>
+
+                                <div class="workout-info-weight">
+                                    <p>Weight</p>
+                                    <% trackedWorkouts.forEach( exercise => { %>
+                                        <p><%= exercise.weight %> lbs</p> 
+                                    <% }) %>
+                                </div>
+
+                                <div class="workout-info-reps-time">
+                                    <p>Reps/Time</p>
+                                    <% trackedWorkouts.forEach( exercise => { %>
+                                        <p><%= exercise.reps %></p> 
+                                    <% }) %>
+                                </div>
+                                
+                                <div class="workout-info-done">
+                                    <p>Done</p>
+                                    <% trackedWorkouts.forEach( exercise => { %>
+                                        <input type="checkbox">
+                                    <% }) %>
+                                </div> -->
+                                <!-- V2 -->
+                                
+                                <!-- <div class="workout-info">
+                                    <p>Exercise</p>
+                                    <p>Sets</p>
+                                    <p>Weight</p>
+                                    <p>Reps/Time</p>
+                                    <p>Done</p>
+                                </div>
+
+                                <% trackedWorkouts.forEach( exercise => { %>
+                                <div class="workout-stats">
+                                    <p><%= exercise.exercise_name %></p>
+                                    <p><%= exercise.sets %>  </p>  
+                                    <p><%= exercise.weight %> lb </p>   
+                                    <p><%= exercise.reps %> reps</p> 
+                                </div>
+                                <% }) %> -->
+                            <!-- </div> -->
                             
-                        </ul>
+                            
+                            
+                            <% } %>
+                            <!-- Middle Area: hold workout info -->
 
-                        <div class="button_cont">
-                            <a class="track-new-exercise-button" href="/track-new-exercise">
-                                <span>Track New
-                            </a>
+
+
                         </div>
-                        <!-- <a href="/dashboard/track-new-exercise" id="track-new-exercise-button">
-                            <p id="track-new-exercise-button-text">Track new Exercise</p>
-                        </a> -->
-                        
-                    </div>    
+
+                        <!-- [Right Side] Weekly Overview Bar -->
+                        <div class="main-dash-dynamic-weekly-stats">
+
+                        </div>
+
                     <% } %>
-                    <!-- ***************** -->
 
-                    <!-- Earned Rewards -->
-                    <ul class="earned-rewards">
-                        <% if (typeof earnedRewards != 'undefined') { %> 
-                            <% earnedRewards.forEach( reward => { %>
-                                <li> <pre><%= reward.company_name %>   <%= reward.reward_name %></pre></li>
-                            <% }) %>
-                        <% } %>
-                    </ul>
-
-                    
                 </div>
-            </div>
-            <!-- ************************** -->
+
+            </div> <!-- Main Dashboard -->
+            <!-- ************************************ -->
 
 
 

@@ -13,21 +13,11 @@ router.route("/")
         console.log(req.isAuthenticated());
 
         //get all of the users tracked exercises
-        var trackedExercises = await queryWorkoutStats(req.user.athlete_id);
+        var trackedExercises = await queryExerciseStats(req.user.athlete_id);
         res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', { user: req.user,
                                                                             trackedExercises: trackedExercises});
     });
     
-
-router.route("/my-rewards")
-    .get(ensureAuthentication, async (req, res) => {
-        console.log("\n****** LOADING MY-REWARDS PAGE ******\n");
-        // console.log(req.user);
-        // console.log(req.user.athlete_id);
-        var earnedRewards = await queryAthleteRewards(req.user.athlete_id);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
-                                                                         earnedRewards: earnedRewards});
-    })
 
 
 router.route("/my-stats")
@@ -37,10 +27,38 @@ router.route("/my-stats")
         // console.log(req.isAuthenticated());
         // console.log(req.user.athlete_first_name);
 
-        var trackedExercises = await queryWorkoutStats(req.user.athlete_id);
+        var trackedExercises = await queryExerciseStats(req.user.athlete_id);
         res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
             trackedExercises: trackedExercises});
-    })
+    });
+
+
+
+router.route("/my-workouts")
+    .get(ensureAuthentication, async (req, res) => {
+        console.log("\n****** LOADING MY-WORKOUTS PAGE ******\n");
+        // console.log(req.user);
+        // console.log(req.isAuthenticated());
+        // console.log(req.user.athlete_first_name);
+
+        var trackedWorkouts = await queryWorkoutStats(req.user.athlete_id);
+        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
+            trackedWorkouts: trackedWorkouts});
+    });
+
+
+
+
+router.route("/my-rewards")
+    .get(ensureAuthentication, async (req, res) => {
+        console.log("\n****** LOADING MY-REWARDS PAGE ******\n");
+        // console.log(req.user);
+        // console.log(req.user.athlete_id);
+        var earnedRewards = await queryAthleteRewards(req.user.athlete_id);
+        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
+                                                                         earnedRewards: earnedRewards});
+    });
+
 
 
 router.route("/logout")
@@ -86,17 +104,50 @@ function ensureAuthentication(req, res, next) {
 
 //https://stackoverflow.com/questions/58254717/returning-the-result-of-a-node-postgres-query
     //helpful link to understand how to use async functions to get the query to run
-async function queryWorkoutStats(athlete_id) {
+async function queryExerciseStats(athlete_id) {
     try { 
-        const results = await pool.query(`SELECT athlete.athlete_first_name, exercise.exercise_name, (CURRENT_DATE - tracked_exercises.tracking_start_date) AS total_time_tracked
-                    FROM tracked_exercises INNER JOIN exercise ON exercise.exercise_id = tracked_exercises.exercise_id INNER JOIN athlete ON athlete.athlete_id = tracked_exercises.athlete_id 
-                    WHERE athlete.athlete_id = $1`, [athlete_id]
+        const results = await pool.query(
+       `SELECT athlete.athlete_first_name, exercise.exercise_name, tracked_exercises.reps
+        FROM athlete
+            INNER JOIN tracked_exercises ON athlete.athlete_id = tracked_exercises.athlete_id
+            INNER JOIN exercise ON tracked_exercises.exercise_id = exercise.exercise_id
+        WHERE 
+            athlete.athlete_id = $1`, [athlete_id]
         );
         return results.rows;
     } catch(error) {
         return error;
     }
 }
+
+
+
+
+async function queryWorkoutStats(athlete_id) {
+    try { 
+        const results = await pool.query(
+       `SELECT athlete.athlete_first_name, workout.workout_id, workout.workout_name,
+       exercise.exercise_name, tracked_exercises.weight, tracked_exercises.sets, tracked_exercises.reps,
+       TO_CHAR(tracked_workouts.date_completed :: DATE, 'Mon dd, yyyy') as date_completed
+       FROM 
+           tracked_workouts 
+           INNER JOIN athlete ON athlete.athlete_id = tracked_workouts.athlete_id
+           INNER JOIN workout ON tracked_workouts.workout_id = workout.workout_id
+           INNER JOIN workout_exercises ON workout.workout_id = workout_exercises.workout_id
+           INNER JOIN exercise ON workout_exercises.exercise_id = exercise.exercise_id
+           INNER JOIN tracked_exercises ON athlete.athlete_id = tracked_exercises.athlete_id
+               AND exercise.exercise_id = tracked_exercises.exercise_id
+       WHERE 
+           athlete.athlete_id = $1`, [athlete_id]
+        );
+        return results.rows;
+    } catch(error) {
+        return error;
+    }
+}
+
+
+
 
 
 async function queryAthleteRewards(athlete_id) {
