@@ -12,6 +12,20 @@
         <div id="athlete-id" style="display:none"><%= user.athlete_id %></div>
         <div id="athlete-object" style="display:none"><%= JSON.stringify(user) %></div>
 
+        <div id="add-exercise-form-container">
+            <form id="add-exercise-form" method="POST">
+                <label for="exercise_type">Exercise Type: (*Optional: But Can Help Narrow Search*) </label>
+                <input type="text" name="exercise_type" placeholder="Strength/Cardio/Sports..."> <br>
+
+                <label for="exercise_name">Exercise Name: </label>
+                <input type="text" name="exercise_name" id="add-exercise-form-exercise-name" placeholder="Dumbell Pec flys..." required><br><br>    
+            
+                <button type="submit" id="add-exercise-form-button">Submit</button><br>
+            </form>
+        </div>
+
+
+
         <div class="grid-container">
             
 
@@ -105,12 +119,14 @@
                                     </div>
                                 <% } %>
                                 <a class="add-new-workout">+</a>
+                                <p>Add New</p>
                             </div>
 
+                        
                             <!-- Middle Area: hold workout info -->
                             <% if (trackedWorkouts.length) { %>
                                 <!-- http://tabulator.info/ -->
-                                <table class="workout-table">
+                                <table id="workout-table">
                                     <tr>
                                         <th>Exercise</th>
                                         <th>Sets</th>
@@ -121,77 +137,29 @@
                                     <% trackedWorkouts.forEach( exercise => { %>
                                         <tr>
                                             <td><%= exercise.exercise_name %></td>
-                                            <td><%= exercise.sets %></td>
-                                            <td><%= exercise.weight %></td>
-                                            <td><%= exercise.reps %></td>
-                                            <td class="done"><input type="checkbox"></td>
+                                            <td contenteditable='true'><%= exercise.sets %></td>
+                                            <td contenteditable='true'><%= exercise.weight %></td>
+                                            <td contenteditable='true'><%= exercise.reps %></td>
+                                            <td><input class="done" type="checkbox"></td>
                                         </tr> 
                                     <% }) %>
                                 </table>
 
-                               
-                               
-                               
-                               
-                               
-                                <!-- <div class="main-dash-dynamic-workout-stats-middle"> -->
-                                <!-- V2 -->
-                                <!-- <div class="workout-info-exercise">
-                                    <p>Exercise</p>
-                                    <% trackedWorkouts.forEach( exercise => { %>
-                                        <p><%= exercise.exercise_name %></p> 
-                                    <% }) %>
+                                <!-- Has stats about the workout you are currently doing -->
+                                <div class="current-workout-stats">
+
+
                                 </div>
 
-                                <div class="workout-info-sets">
-                                    <p>Sets</p>
-                                    <% trackedWorkouts.forEach( exercise => { %>
-                                        <p><%= exercise.sets %></p> 
-                                    <% }) %>
+
+                                <!-- Buttons at the bottom -->
+                                <div class="my-workout-buttons">
+                                    <!-- <a href="/dashboard/my-workouts/add-new-exercise">Add New Exercise</a> -->
+                                    <a id="add-new-exercise">Add New Exercise</a>
+                                    <a>Save Changes to Workout</a>
+                                    <a>Complete Workout!</a>
                                 </div>
 
-                                <div class="workout-info-weight">
-                                    <p>Weight</p>
-                                    <% trackedWorkouts.forEach( exercise => { %>
-                                        <p><%= exercise.weight %> lbs</p> 
-                                    <% }) %>
-                                </div>
-
-                                <div class="workout-info-reps-time">
-                                    <p>Reps/Time</p>
-                                    <% trackedWorkouts.forEach( exercise => { %>
-                                        <p><%= exercise.reps %></p> 
-                                    <% }) %>
-                                </div>
-                                
-                                <div class="workout-info-done">
-                                    <p>Done</p>
-                                    <% trackedWorkouts.forEach( exercise => { %>
-                                        <input type="checkbox">
-                                    <% }) %>
-                                </div> -->
-                                <!-- V2 -->
-                                
-                                <!-- <div class="workout-info">
-                                    <p>Exercise</p>
-                                    <p>Sets</p>
-                                    <p>Weight</p>
-                                    <p>Reps/Time</p>
-                                    <p>Done</p>
-                                </div>
-
-                                <% trackedWorkouts.forEach( exercise => { %>
-                                <div class="workout-stats">
-                                    <p><%= exercise.exercise_name %></p>
-                                    <p><%= exercise.sets %>  </p>  
-                                    <p><%= exercise.weight %> lb </p>   
-                                    <p><%= exercise.reps %> reps</p> 
-                                </div>
-                                <% }) %> -->
-                            <!-- </div> -->
-                            
-                            
-                            
                             <% } %>
                             <!-- Middle Area: hold workout info -->
 
@@ -236,7 +204,9 @@
 
         
     </body>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/dynamic/dashboard_views.js"></script>
+    
 
 </html>

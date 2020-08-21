@@ -36,7 +36,7 @@ router.route("/my-stats")
 
 router.route("/my-workouts")
     .get(ensureAuthentication, async (req, res) => {
-        console.log("\n****** LOADING MY-WORKOUTS PAGE ******\n");
+        console.log("\n****** LOADING MY-WORKOUTS PAGE FROM DASHBOARD.JS ******\n");
         // console.log(req.user);
         // console.log(req.isAuthenticated());
         // console.log(req.user.athlete_first_name);

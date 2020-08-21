@@ -1,67 +1,110 @@
 
 
-
-// var USERDATA = "<%= user %>";
-
-
-//displays the user's tracked excercises when page loads
-const userObjID = document.getElementById("athlete-id").innerHTML;
-console.log(userObjID);
-
-const athleteObjString = document.getElementById("athlete-object").innerHTML;
-const athleteObj = JSON.parse(athleteObjString)
-console.log(athleteObj);
+var numRows = document.getElementById("workout-table").rows.length;
+console.log(numRows);
 
 
-// async function fetchLastName(){
-//     console.log("Calling fetch function!");
-//     const response = await fetch('http://localhost:8000/dashboard/get-last-name', {
-//         method: 'POST',
-//         body: userObjID
-//     });
-//     console.log(response);
-// }
+// Used to listen for the checkboxes being checked
+    //will be used when the workout is completed
+var exerciseComplete = [];
 
-// fetchLastName().catch(error => {
-//     console.log("Error inside of webpage");
-//     console.log(error);
-// });
+for(i = 0; i < numRows-1; i++){
+    exerciseComplete.push(0);
+}
+console.log(exerciseComplete);
 
-
-// var lastSelectionText = document.getElementById("my-stats").addEventListner("onchange", )
+document.addEventListener('click', function(event){
+    if(event.target.matches('.done')) {
+        if(event.target.checked) {
+            console.log("checked");
+            exerciseComplete[event.path[2].rowIndex-1] = 1;
+            console.log(exerciseComplete);
+        } else {
+            console.log("checked");
+            exerciseComplete[event.path[2].rowIndex-1] = 0;
+            console.log(exerciseComplete);
+        }
+    }
+});
 
 
 
-//Event listeners to populate Selection Box Title when clicked
-var myStats = document.getElementById("my-stats").addEventListener("click", populateSelectionTitle);
-var myWorkouts = document.getElementById("my-workouts").addEventListener("click", populateSelectionTitle);
-var myRewards = document.getElementById("my-rewards").addEventListener("click", populateSelectionTitle);
-var myTeam = document.getElementById("my-team").addEventListener("click", populateSelectionTitle);
 
 
-//Populates the Selection Title with whatever field was clicked
-function populateSelectionTitle(){
-    console.log("Button was Clicked!"+ this.id);
-    divText = document.getElementById(this.id+"-text");
-    document.getElementById("select-box-title-text").innerHTML = divText.innerHTML;
+
+async function getExerciseNames(){
+    console.log("Inside the getExerciseNames Function");
+    var exerciseNames = [];
+  
+    var response = await fetch("/dashboard/my-workouts/search-exercises");
+    var data = await response.json()
+    .catch(error => {
+        console.log(error);
+    });
+
+    data.forEach(exercise => {
+        exerciseNames.push(exercise.exercise_name);
+    })
+    console.log(exerciseNames);
+    return exerciseNames;
+
+    
 }
 
 
-//listens for the "manage Account" to be clicked on
-// var manageActHover = document.getElementById("account-info-manage-account").addEventListener("mouseover", dropMenu);
-// var manageActOff = document.getElementById("account-info-manage-account").addEventListener("mouseout", pullUpMenu);
 
-// function dropMenu(){
-//     console.log("Manage Account was Pressed!");
-//     var dropDown = document.getElementById("manage-account-menu");
-//     dropDown.style.display = "flex";
-//     dropDown.style.flexDirection = "column";
-// }
+// Adding new exercise
+var addExerciseButton = document.getElementById("add-new-exercise");
+addExerciseButton.addEventListener("click", addExercise);
+
+function addExercise() {
+    console.log("Add Exercise Button was clicked");
+    
+
+    var exerciseFormCon = document.getElementById("add-exercise-form-container");
+    
+    //make everything but the form transparent
+    document.getElementsByClassName("grid-container")[0].style.opacity = .5;
+    
+    
+    exerciseFormCon.style.display = "flex";
+    exerciseFormCon.style.opacity = 1;
+    exerciseFormCon.style.zIndex = 5;
+
+
+}
+
+
+//Hides the add exercise form when clicking off of it
+$(".grid-container").mouseup(function (e) { 
+    if ($(e.target).closest("#add-exercise-form-container").length 
+                === 0) { 
+        $("#add-exercise-form-container").hide(); 
+        document.getElementsByClassName("grid-container")[0].style.opacity = 1;
+    } 
+});
 
 
 
-// function pullUpMenu(){
-//     console.log("Manage Account was Pressed!");
-//     var dropDown = document.getElementById("manage-account-menu");
-//     dropDown.style.display = "none";
-// }
+
+
+
+//Autocomplete for adding a new exercise
+$(function() {
+
+    console.log("Inside autocomplete function");
+    var names = getExerciseNames();
+    names.then(results => {
+        console.log(results);
+
+        $("#add-exercise-form-exercise-name").autocomplete({
+            source: results
+        });
+    });
+
+    console.log("Finished saving the exercise names"); 
+});
+
+
+
+
