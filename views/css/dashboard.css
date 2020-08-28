@@ -196,7 +196,7 @@
                         justify-content: center;
                         align-items: center;
                     }
-                    .add-new-workout{
+                    #add-new-workout-button{
                         width: 8%;
                         height: 90%;
 
@@ -205,7 +205,7 @@
 
                         font-size: 30px;
                     }
-                    .add-new-workout:hover{
+                    #add-new-workout-button:hover{
                         width: 8%;
                         height: 90%;
 
@@ -217,9 +217,59 @@
                         transition: transform .2s;
                         transform: scale(1.05);
                     }
-                /* .main-dash-dynamic-workout-stats-middle{
-                    width: 98%;
-                } */
+                    #add-workout-form-container{
+                        display: none;
+                        position: absolute;
+                        bottom: 45%;
+                        right: 40%;
+        
+        
+                        background-color: black;
+        
+                        flex-direction: column;
+                        justify-content: space-around;
+                        align-items: center;
+                        height: 35%;
+                        width: 50%;
+        
+                        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                        font-weight: 320;
+                    }
+        
+                        #add-workout-form{
+                            height: 90%;
+                            width: 90%;
+        
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+        
+                            margin-top: 5px;
+                        } 
+        
+                        #add-workout-form input[type=text]{
+                            width: 90%;
+                            height: 5%;
+                            margin-top: 3px;
+                            margin-bottom: 10px;
+                            padding: 9px;
+                            border-radius: 5px;
+                        }
+        
+                        #add-workout-form input[type=text]:focus{
+                            background-color: #ddd;
+                            outline: none;
+                            width: 95%;
+                            height: 6%;
+                        }
+                        #add-workout-form-button{
+                            height: 10%;
+                            width: 15%;
+                            cursor: pointer;
+                            border-radius: 5px;
+                        }
+
                 #workout-table{
                     width: 98%;
                     border-collapse: collapse;
@@ -265,10 +315,11 @@
 
 
             /* Adding a new Exercise to workout */
+                    /* Add new exercise form */
             #add-exercise-form-container{
                 display: none;
                 position: absolute;
-                bottom: 50%;
+                bottom: 45%;
                 right: 40%;
 
 
@@ -277,7 +328,7 @@
                 flex-direction: column;
                 justify-content: space-around;
                 align-items: center;
-                height: 30%;
+                height: 35%;
                 width: 50%;
 
                 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -293,7 +344,7 @@
                     justify-content: center;
                     align-items: center;
 
-                    
+                    margin-top: 5px;
                 } 
 
                 #add-exercise-form input[type=text]{
@@ -317,6 +368,21 @@
                     cursor: pointer;
                     border-radius: 5px;
                 }
+                    .ui-front{
+                        position: absolute;
+                        background-color: black;
+                        z-index: 6;
+                        cursor: pointer;
+                    }
+                    .ui-autocomplete{
+                        list-style-type: none;
+                        padding-left: 10px;
+                        margin-top: 2px;
+                    }
+            /* Add new exercise form */
+
+
+
 
 
             /* Right Side */

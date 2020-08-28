@@ -9,11 +9,14 @@
 
 
     <body>
-        <div id="athlete-id" style="display:none"><%= user.athlete_id %></div>
-        <div id="athlete-object" style="display:none"><%= JSON.stringify(user) %></div>
+        <!-- <div id="athlete-id" style="display:none"><%= user.athlete_id %></div>
+        <div id="athlete-object" style="display:none"><%= JSON.stringify(user) %></div> -->
 
+
+        <!-- Form to Add a new exercise to the workout -->
+        <% if (typeof trackedWorkouts != 'undefined' && trackedWorkouts.length > 0) { %> 
         <div id="add-exercise-form-container">
-            <form id="add-exercise-form" method="POST">
+            <form id="add-exercise-form" method="POST" action="/dashboard/my-workouts/add-new-exercise/<%= trackedWorkouts[0].workout_id %>">
                 <label for="exercise_type">Exercise Type: (*Optional: But Can Help Narrow Search*) </label>
                 <input type="text" name="exercise_type" placeholder="Strength/Cardio/Sports..."> <br>
 
@@ -23,12 +26,23 @@
                 <button type="submit" id="add-exercise-form-button">Submit</button><br>
             </form>
         </div>
+        <% } %>
 
+        <div id="add-workout-form-container">
+            <form id="add-workout-form" method="POST" action="/dashboard/my-workouts/add-new-workout">
+                <label for="workout_name">Workout Name: </label>
+                <input type="text" name="workout_name" placeholder="New Workout Name..."> <br>
+
+                <!-- <label for="exercise_name">Exercise Name: </label>
+                <input type="text" name="exercise_name" id="add-exercise-form-exercise-name" placeholder="Dumbell Pec flys..." required><br><br>    
+             -->
+                <button type="submit" id="add-workout-form-button">Submit</button><br>
+            </form>
+        </div>
 
 
         <div class="grid-container">
             
-
             <!-- ******** Navigation Bar ******** -->
             <div class="navigation">
                 
@@ -118,7 +132,7 @@
                                         <p> Add New Workout! </p>
                                     </div>
                                 <% } %>
-                                <a class="add-new-workout">+</a>
+                                <a id="add-new-workout-button">+</a>
                                 <p>Add New</p>
                             </div>
 

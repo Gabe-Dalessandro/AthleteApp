@@ -126,6 +126,7 @@ ALTER TABLE public.tracked_exercises
     OWNER to postgres;
 
 
+
 INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
 VALUES (27, 12, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 35, 3, 20);
 
@@ -206,7 +207,7 @@ INSERT INTO earned_rewards (earned_reward_id, athlete_id, reward_id)
 
 
 
--- Table: workouts
+-- Table: workout
 CREATE TABLE public.workout
 (
    workout_id serial NOT NULL,

@@ -14,7 +14,7 @@ router.route("/")
 
         //get all of the users tracked exercises
         var trackedExercises = await queryExerciseStats(req.user.athlete_id);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', { user: req.user,
+        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-stats.ejs', { user: req.user,
                                                                             trackedExercises: trackedExercises});
     });
     
@@ -28,7 +28,7 @@ router.route("/my-stats")
         // console.log(req.user.athlete_first_name);
 
         var trackedExercises = await queryExerciseStats(req.user.athlete_id);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
+        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-stats.ejs', {user: req.user,
             trackedExercises: trackedExercises});
     });
 
@@ -42,7 +42,7 @@ router.route("/my-workouts")
         // console.log(req.user.athlete_first_name);
 
         var trackedWorkouts = await queryWorkoutStats(req.user.athlete_id);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
+        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-workouts.ejs', {user: req.user,
             trackedWorkouts: trackedWorkouts});
     });
 
@@ -55,7 +55,7 @@ router.route("/my-rewards")
         // console.log(req.user);
         // console.log(req.user.athlete_id);
         var earnedRewards = await queryAthleteRewards(req.user.athlete_id);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard.ejs', {user: req.user,
+        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-stats.ejs', {user: req.user,
                                                                          earnedRewards: earnedRewards});
     });
 
@@ -73,10 +73,7 @@ router.route("/logout")
     });
 
 
-router.route('/dashboard/track-new-exercise')
-    .post(ensureAuthentication, (req, res)=> {
 
-    });
 
 
 
