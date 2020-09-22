@@ -18,61 +18,93 @@ router.route("/")
 
 
 
+
+
+
+// async function queryGetExerciseId(exerciseName) {
+//     try {
+//         const result = await pool.query(
+//             `SELECT exercise_id FROM exercise WHERE exercise_name = $1`, [exerciseName]
+//         );
+//         return result.rows[0].exercise_id;
+//     } catch(error){
+//         console.log("Error in query")
+//         return error;
+//     }
+// }
+
+
+    //else the workout name doesn't exist yet, insert it into the table
+    // else {
+    //     //Insert new workout into workout table
+    //     var insertWorkout = async function() {
+    //         await pool.query(
+    //             `INSERT INTO workout(workout_name, athlete_id) VALUES($1, $2)`, [workoutName, athleteID]
+    //         )
+    //     };
+    //     insertWorkout;
+
+
+    //     //Get new workout id
+    //     var workoutID =
+    //         pool.query(
+    //             `SELECT workout_id FROM workout WHERE workout_name = $1 AND athlete_id = $2`, [workoutName, athleteID],
+    //             async (results, error) => {
+    //                 console.log(`Results from workout table: ${results}`);
+    //                 // return results.rows[0];
+    //             }
+    //         );
+
+    //     console.log(workoutID);
+    //     return workoutID;
+    // } //else
+
+
+
+
 //Creates a new workout for the user
 router.route("/add-new-workout")
-    .post(ensureAuthentication, async (req, res) => {
-        console.log("Adding new Workout");
-
+    .post(ensureAuthentication, async function(req, res){
         var workoutName = req.body.workout_name;
         var athleteID = req.user.athlete_id;
-        console.log(workoutName);
+        console.log("Adding new Workout: " + workoutName);
 
-        pool.query(
-            `SELECT * FROM workout WHERE athlete_id = $1 AND workout_name = $2`,
-            [athleteID, workoutName],
-            (results, error) => {
-                if(results.rows != undefined) {
-                    console.log("Workout name already exists for this user");
-                }
-                else {
-                    //Insert new workout into workout table
-                    pool.query(
-                        `INSERT INTO workout(workout_name) VALUES($1)`, [workoutName]
-                    );
 
-                    //Get new workout id
-                    var workoutID = pool.query(
-                        `SELECT workout_id FROM workout WHERE workout_name = $1`, [workoutName],
-                        (results, error) => {
-                            console.log(`Results from workout table: ${results}`);
-                            // return results.rows[0];
+        const results = await pool.query(
+                    `SELECT * FROM workout WHERE athlete_id = $1 AND workout_name = $2`,
+                    [athleteID, workoutName],
+                    async (error, results) => {
+                        //If the workout name already exists
+                        if(results.rows == undefined) {
+                            console.log("Workout name already exists for this user");
+                            var errorMessages = [];
+                            errorMessages.push({ message: "Workout name already exists!"});
+                            res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-workouts.ejs', { user: req.user, errorMessages });
                         }
-                    );
+                        else {
+                            console.log("workout name doesn't exist");
 
-        //             //Insert workout into tracked workouts table
-        //             pool.query(
-        //                 `INSERT INTO tracked_workouts(athlete_id, workout_id) VALUES($1, $2)`,
-        //                 [athleteID, workoutID]
-        //             );
+                            //insert workout into workout table
+                            pool.query(
+                                `INSERT INTO workout(workout_name, athlete_id) VALUES($1, $2)`, [workoutName, athleteID]
+                            );
 
-        //             //Get the new tracked workout
-        //             var newWorkout = pool.query(
-        //                 `SELECT * FROM tracked_workouts WHERE athlete_id = $1`, [athleteID],
-        //                 (results, error) => {
-        //                     return results.rows[0];
-        //                 }
-        //             );
-                
-        //             // var trackedWorkouts = await queryWorkoutStats(req.user.athlete_id);
-        //             res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-workouts.ejs', {user: req.user,
-        //                 trackedWorkouts: newWorkout});
-                 }
-             }
-        )
+                            //get workout id
+                            var workoutID = await queryGetWorkoutID(workoutName, athleteID);
 
+                            console.log(workoutID);
 
-    })
+                        } //else
+                    } //(results, error)
+                ); //end of query `SELECT * FROM workout WHERE athlete_id = $1 AND workout_name = $2`
+
+ 
+        // console.log(workoutID);
+
+    });
     
+
+
 
 //Adds a new exercise to the workout for the user
 router.route("/add-new-exercise/:id")
@@ -127,8 +159,10 @@ router.route("/add-new-exercise/:id")
 
         var trackedWorkouts = await queryCurrentWorkout(athleteID, workoutID);
         console.log(trackedWorkouts);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-workouts.ejs', {user: req.user,
-            trackedWorkouts: trackedWorkouts});
+        res.redirect("/dashboard/my-workouts");
+        
+        // res.render('/dashboard/my-workouts', {user: req.user,
+        //     trackedWorkouts: trackedWorkouts});
     });
 
 
@@ -138,7 +172,7 @@ router.route("/search-exercises")
         console.log("Searching through exercises");
 
         var exercises = await queryGetExerciseNames();
-        console.log(exercises);
+        // console.log(exercises);
         return res.json(exercises);
     });
 
@@ -177,6 +211,19 @@ async function queryCurrentWorkout(athleteID, workoutID){
 }
 
 
+
+async function queryGetWorkoutID(workoutName, athleteID){
+    try {
+        const results = await pool.query(
+            `SELECT workout_id FROM workout WHERE workout_name = $1 AND athlete_id = $2`, [workoutName, athleteID]
+        );
+        return results.rows[0];
+    } catch(err) {
+        console.log("Error in query")
+        return error;
+    }
+
+}
 
 
 async function queryGetExerciseId(exerciseName) {

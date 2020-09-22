@@ -69,7 +69,6 @@ app.use("/track-new-exercise", track_new_exercise);
 
 
 
-
 //***** RUNNING SERVER *****
 const port = 8000;
 app.listen(port, (err) => {

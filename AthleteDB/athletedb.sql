@@ -211,16 +211,21 @@ INSERT INTO earned_rewards (earned_reward_id, athlete_id, reward_id)
 CREATE TABLE public.workout
 (
    workout_id serial NOT NULL,
+   athlete_id int NOT NULL,
    workout_name character varying(50) NOT NULL,
    times_completed int,
-   PRIMARY KEY (workout_id)
+   PRIMARY KEY (workout_id),
+   FOREIGN KEY (athlete_id) 
+      REFERENCES athlete(athlete_id)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE 
 );
 
 ALTER TABLE public.workout
     OWNER to postgres;
 
 
-INSERT INTO workout(workout_name) VALUES ('Typical Leg Day')
+INSERT INTO workout(workout_id, workout_name) VALUES (1, 'Typical Leg Day')
 
 
 
@@ -310,3 +315,37 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 
 
+
+
+
+
+
+-- Adding a new workout to Gabe id = 27
+INSERT INTO workout(workout_id, athlete_id, workout_name) VALUES (1, 27, 'Typical Leg Day')
+
+INSERT INTO tracked_workouts(athlete_id, workout_id, date_completed) VALUES(27, 1, TO_DATE('17/07/2020', 'DD/MM/YYYY'));
+
+INSERT INTO workout_exercises(workout_id, exercise_id) VALUES (1, 12);
+INSERT INTO workout_exercises(workout_id, exercise_id) VALUES (1, 13);
+INSERT INTO workout_exercises(workout_id, exercise_id) VALUES (1, 14);
+INSERT INTO workout_exercises(workout_id, exercise_id) VALUES (1, 15);
+INSERT INTO workout_exercises(workout_id, exercise_id) VALUES (1, 16);
+INSERT INTO workout_exercises(workout_id, exercise_id) VALUES (1, 17);
+
+INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
+VALUES (27, 12, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 35, 3, 20);
+
+INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
+VALUES (27, 13, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 25, 4, 16);
+
+INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
+VALUES (27, 14, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 0, 3, 20);
+
+INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
+VALUES (27, 15, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 0, 3, 8);
+
+INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
+VALUES (27, 16, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 0, 1, 5);
+
+INSERT INTO tracked_exercises(athlete_id, exercise_id, date_completed, weight, sets, reps) 
+VALUES (27, 17, TO_DATE('17/07/2020', 'DD/MM/YYYY'), 225, 3, 8);
