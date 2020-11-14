@@ -3,7 +3,7 @@
     <head>
         <title> My Athlete App Dashboard</title>
         <meta charset="UTF-8">
-        <link href="/css/dashboard.css" rel="stylesheet">
+        <link href="/css/dashboard-my-workouts.css" rel="stylesheet">
     </head>
 
 
@@ -12,11 +12,11 @@
         <!-- <div id="athlete-id" style="display:none"><%= user.athlete_id %></div>
         <div id="athlete-object" style="display:none"><%= JSON.stringify(user) %></div> -->
 
-
+        <!-- ADD NEW EXERCISE FORM -->
         <!-- Form to Add a new exercise to the workout -->
-        <% if (typeof trackedWorkouts != 'undefined' && trackedWorkouts.length > 0) { %> 
+        <% if (typeof workoutList != 'undefined' && typeof selectedWorkoutID != 'undefined') { %> 
         <div id="add-exercise-form-container">
-            <form id="add-exercise-form" method="POST" action="/dashboard/my-workouts/add-new-exercise/<%= trackedWorkouts[0].workout_id %>">
+            <form id="add-exercise-form" method="POST" action="/dashboard/my-workouts/add-new-exercise/<%= selectedWorkoutID %>">
                 <label for="exercise_type">Exercise Type: (*Optional: But Can Help Narrow Search*) </label>
                 <input type="text" name="exercise_type" placeholder="Strength/Cardio/Sports..."> <br>
 
@@ -27,7 +27,10 @@
             </form>
         </div>
         <% } %>
+        <!-- ADD NEW EXERCISE FORM -->
 
+
+        <!-- ADD NEW WORKOUT FORM -->
         <div id="add-workout-form-container">
             <form id="add-workout-form" method="POST" action="/dashboard/my-workouts/add-new-workout">
                 <label for="workout_name">Workout Name: </label>
@@ -39,56 +42,18 @@
                 <button type="submit" id="add-workout-form-button">Submit</button><br>
             </form>
         </div>
+        <!-- ADD NEW WORKOUT FORM -->
 
 
         <div class="grid-container">
             
             <!-- ******** Navigation Bar ******** -->
-            <div class="navigation">
-                
-                <!-- Logo -->
-                <div class="logo">
-                    <img src="/images/logo.png">
-                </div>
-
-                <!-- Dashboard Options -->
-                <div class="dash-menu">
-                    <a href="/dashboard/my-workouts" id="my-workouts">
-                        <p class="dash-menu-text">My Workouts</p>
-                    </a>
-                    
-                    <a href="/dashboard/my-stats" id="my-stats">
-                        <p class="dash-menu-text">My Stats</p>
-                    </a>
-
-                    <a href="/dashboard/my-rewards" id="my-rewards">
-                        <p class="dash-menu-text">My Rewards</p>
-                    </a>
-
-                    <a href="/dashboard/my-team" id="my-team">
-                        <p class="dash-menu-text">My Team</p>
-                    </a>
-                </div>
-
-                <!-- Account Info -->
-                <div class="account-info">
-                    <p id="account-info-name"><%= user.athlete_first_name %></p>
-                    <a href="/dashboard/logout" id="account-info-manage-account">Manage Account/Logout</a>
-                    <!-- <div id="manage-account-menu">
-                        <a>Profile Settings</a>
-                        <a href="/dashboard/logout">Logout</a>
-                    </div> -->
-                </div>
-            </div>
-            <!-- ************************** -->
-
-
+            <%- include('partials/navbar.ejs') %>
      
 
 
 
             <!-- ********** Main Dashboard ********** -->
-
             <div class="main-dash">
 
                 <!-- Title Box -->
@@ -99,7 +64,7 @@
                     <% } %>   
 
                     <!-- My-Workouts -->
-                    <% if (typeof trackedWorkouts != 'undefined') { %> 
+                    <% if (typeof workoutList != 'undefined') { %> 
                         <p id="main-dash-title-text">My Workouts</p>
                     <% } %> 
 
@@ -113,82 +78,93 @@
                         <p id="main-dash-title-text">My Team</p>
                     <% } %> 
                 </div>
+                <!-- Title Box -->
 
+
+                <!-- Main Section of Workouts Page (2 parts) -->
                 <div class="main-dash-dynamic">
-                
-                    <!-- Tracked Workouts -->
-                    <% if (typeof trackedWorkouts != 'undefined') { %> 
-                        <!-- [Left Side] Workout Selection -->
-                        <div class="main-dash-dynamic-workout-stats">
-                            <!-- Upper Area -->
-                            <div class="main-dash-dynamic-workout-stats-upper"> 
-                                <% if (trackedWorkouts.length) { %>
-                                    <div class="main-dash-dynamic-workout-stats-title"> 
-                                        <p> <%= trackedWorkouts[0].workout_name %>  <%= trackedWorkouts[0].date_completed %></p>
-                                    </div>
-                                    
-                                <% } else {%>
-                                    <div class="main-dash-dynamic-workout-stats-title"> 
-                                        <p> Add New Workout! </p>
-                                    </div>
+                    
+                    <!-- 1) [Left Side] Weekly Overview Bar -->
+                    <% if (typeof workoutList != 'undefined') { %> 
+                        <div class="main-dash-dynamic-workout-list">
+                            <p> List of Workouts</p>
+                            <div id="all-workouts-from-workout-list">
+                            <% if (workoutList.length) { %>
+                                <% for(var i = 0; i < workoutList.length; i++) { %>
+                                <div class="main-dash-dynamic-workout-box"> 
+                                    <!-- <%= workoutList[i].workout_id %>  -->
+                                    <%= workoutList[i].workout_name %>
+                                </div>
                                 <% } %>
-                                <a id="add-new-workout-button">+</a>
-                                <p>Add New</p>
-                            </div>
-
-                        
-                            <!-- Middle Area: hold workout info -->
-                            <% if (trackedWorkouts.length) { %>
-                                <!-- http://tabulator.info/ -->
-                                <table id="workout-table">
-                                    <tr>
-                                        <th>Exercise</th>
-                                        <th>Sets</th>
-                                        <th>Weight</th>
-                                        <th>Reps/Time</th>
-                                        <th>Done</th>
-                                    </tr>
-                                    <% trackedWorkouts.forEach( exercise => { %>
-                                        <tr>
-                                            <td><%= exercise.exercise_name %></td>
-                                            <td contenteditable='true'><%= exercise.sets %></td>
-                                            <td contenteditable='true'><%= exercise.weight %></td>
-                                            <td contenteditable='true'><%= exercise.reps %></td>
-                                            <td><input class="done" type="checkbox"></td>
-                                        </tr> 
-                                    <% }) %>
-                                </table>
-
-                                <!-- Has stats about the workout you are currently doing -->
-                                <div class="current-workout-stats">
-
-
-                                </div>
-
-
-                                <!-- Buttons at the bottom -->
-                                <div class="my-workout-buttons">
-                                    <!-- <a href="/dashboard/my-workouts/add-new-exercise">Add New Exercise</a> -->
-                                    <a id="add-new-exercise">Add New Exercise</a>
-                                    <a>Save Changes to Workout</a>
-                                    <a>Complete Workout!</a>
-                                </div>
-
                             <% } %>
-                            <!-- Middle Area: hold workout info -->
-
-
-
+                            </div>
                         </div>
-
-                        <!-- [Right Side] Weekly Overview Bar -->
-                        <div class="main-dash-dynamic-weekly-stats">
-
-                        </div>
-
                     <% } %>
 
-                </div>
+                       
+                    <!-- 2) [Right Side] Current Workout Selected -->
+                    <div class="main-dash-dynamic-workout-stats">
+                        <!-- Upper Area -->
+                        <div class="main-dash-dynamic-workout-stats-upper"> 
+                            <!-- Will show this if a user has a workout -->
+                            <% if (typeof selectedWorkoutID != 'undefined') { %>
+                                <div class="main-dash-dynamic-workout-stats-title">
+                                        <p> <%= selectedWorkoutName %></p>
+                                </div>
+                            <!-- Else, a user has not tracked a workout yet  -->
+                            <% } else {%>
+                                <div class="main-dash-dynamic-workout-stats-title"> 
+                                    <p> Add New Workout! </p>
+                                </div>
+                            <% } %>
+                            <a id="add-new-workout-button">+</a>
+                            <p>Add New</p>
+                        </div>
+
+                    
+                        <!-- Middle Area: holds workout info -->
+                        <% if (typeof selectedWorkoutExercises != 'undefined') { %>
+                            <!-- http://tabulator.info/ -->
+                            <table id="workout-table">
+                                <tr>
+                                    <th>Exercise</th>
+                                    <th>Sets</th>
+                                    <th>Weight</th>
+                                    <th>Reps/Time</th>
+                                    <th>Done</th>
+                                </tr>
+                                <% selectedWorkoutExercises.forEach( exercise => { %>
+                                    <tr>
+                                        <td><%= exercise.exercise_name %></td>
+                                        <td contenteditable='true'><%= exercise.sets %></td>
+                                        <td contenteditable='true'><%= exercise.weight %></td>
+                                        <td contenteditable='true'><%= exercise.reps %></td>
+                                        <td><input class="done" type="checkbox"></td>
+                                    </tr> 
+                                <% }) %>
+                            </table>
+
+                            <!-- Has stats about the workout you are currently doing -->
+                            <div class="current-workout-stats">
+                                    <div id="completion-bar">Completion Bar</div>
+                            </div>
+
+
+                            <!-- Buttons at the bottom -->
+                            <div class="my-workout-buttons">
+                                <!-- <a href="/dashboard/my-workouts/add-new-exercise">Add New Exercise</a> -->
+                                <a id="add-new-exercise">Add New Exercise</a>
+                                <a id="delete-workout">Delete Workout</a>
+                                <a id="complete-session">Complete Session!</a>
+                            </div>
+
+                        <% } %>
+                    </div> <!-- <div class="main-dash-dynamic-workout-stats"></div> -->
+                </div> <!-- <div class="main-dash-dynamic"></div> -->
+                <!-- Main Section of Workouts Page -->  
+
+
+
 
             </div> <!-- Main Dashboard -->
             <!-- ************************************ -->
@@ -220,7 +196,7 @@
     </body>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="/dynamic/dashboard_views.js"></script>
+    <script src="/dynamic/my-workouts_views.js"></script>
     
 
 </html>

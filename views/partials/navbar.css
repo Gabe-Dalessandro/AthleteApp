@@ -1,0 +1,97 @@
+
+    /* ********** NAVIGATION BAR ********** */
+    .navigation{
+        grid-area: nav;
+        display: grid;
+        grid-template-columns: 25% 56% 19%;
+        grid-template-rows: 60px;
+        grid-template-areas: 
+            'logo menu acct';
+    }
+    
+        /* LOGO */
+        .logo{
+            grid-area: logo;
+    
+            font-weight: 550;
+            font-size: 25px;
+        }
+            .logo > img {
+                width: 95%;
+                height: 90%;
+                object-fit: cover; 
+                margin: auto;
+                display: block;
+            }
+            
+    
+        /* DASHBOARD MENU */
+        .dash-menu{
+            grid-area: menu;
+            
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+            .dash-menu > a{
+                font-size: 18px;
+                color: white;
+    
+                cursor: pointer;
+                text-decoration: none;
+                transition: transform .2s;
+            }
+    
+            .dash-menu > a:hover{
+                transform: scale(1.05);
+            }
+    
+        
+        /* ACCOUNT INFO */
+        .account-info{
+            grid-area: acct;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-weight: 320;
+            font-size: 18px;
+        }
+    
+        #account-info-manage-account{
+            cursor: pointer;
+            color: white;
+            margin-top: 1px;
+            width: auto;
+            text-decoration: none;
+    
+            transition: transform .2s;
+        }
+    
+        #account-info-manage-account:hover{
+            color: white;
+            transform: scale(1.02);
+        }
+     
+        /* #manage-account-menu{
+            display: none;
+            width: 150px;
+            height: auto;
+            background-color: rgb(22, 21, 21);
+            z-index: 1;
+        }
+    
+        #manage-account-menu > a{
+            border: none;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            color: white;
+            text-decoration: none;
+        } */
+        
+    /* ************************************* */
+    

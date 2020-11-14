@@ -56,7 +56,8 @@ router.route("/create-new-athlete")
         //***** IF FORM VALIDATION PASSED *****
         else {
             //hash the password to make it secure
-            let hashedPW = await bcrypt.hash(password, 10);
+            // let hashedPW = await bcrypt.hash(password, 10);
+            let hashedPW = password; //use if not hashing password
 
             //push the data into the database
             pool.query(

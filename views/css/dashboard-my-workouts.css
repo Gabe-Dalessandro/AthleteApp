@@ -40,10 +40,7 @@
     
     
     
-    
 
-    
-    
 
     /* ********** Main Dashboard [MIDDLE] ********** */
     .main-dash{
@@ -81,7 +78,8 @@
 
             /* *** MY WORKOUTS  *** */
             /* Left Side */
-            .main-dash-dynamic-weekly-stats{
+                /* List of all workouts */
+            .main-dash-dynamic-workout-list{
                 width: 28%;
                 height: 100%;
 
@@ -90,6 +88,30 @@
                 justify-content: flex-start;
                 align-items: center;
             }
+                #all-workouts-from-workout-list{
+                    display:flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+
+                    border: 1px solid red;
+                    margin: 10px;
+                    width: 80%;
+                    height: 90%;
+                }
+                    .main-dash-dynamic-workout-box{
+                        margin: 15px;
+                        border: 1px solid red;
+
+                        width: 80%;
+                        height: 45px;
+                        text-align: center;
+                    }
+                    .main-dash-dynamic-workout-box:hover{
+                        cursor: pointer;
+                        transition: transform .2s;
+                        transform: scale(1.05);
+                    }
 
 
 
@@ -221,7 +243,9 @@
                     align-items: center;
                 }
                     #completion-bar{
-                        /* text-align: center; */
+                        text-align: center;
+                        height: 30%;
+                        width: 50%;
                     }
 
 
@@ -242,10 +266,26 @@
                         margin: 2px;
                         cursor: pointer;
                     }
+                    #add-new-exercise:hover{
+                        cursor: pointer;
+                        transition: transform .2s;
+                        transform: scale(1.05);
+                    }
+                    #delete-workout:hover{
+                        cursor: pointer;
+                        transition: transform .2s;
+                        transform: scale(1.05);
+                    }
+                    #complete-session:hover{
+                        cursor: pointer;
+                        transition: transform .2s;
+                        transform: scale(1.05);
+                    }
+
 
 
             /* Adding a new Exercise to workout */
-                    /* Add new exercise form */
+            /* Add new exercise form */
             #add-exercise-form-container{
                 display: none;
                 position: absolute;
@@ -310,16 +350,6 @@
                         margin-top: 2px;
                     }
             /* Add new exercise form */
-
-
-
-
-
-           
-    
-    
-
-    
 
     /* ******************************************** */
     

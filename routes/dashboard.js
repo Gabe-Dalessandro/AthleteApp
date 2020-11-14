@@ -8,12 +8,12 @@ const { pool } = require('../lib/dbConfig.js');
 //Does whatever type of request for the root directory ("/dashboard")
 router.route("/")
     .get(ensureAuthentication, async (req, res) => {
-        console.log("\n****** LOADING DASHBOARD PAGE ******\n")
+        console.log("\n****** LOADING HOME DASHBOARD PAGE (Displaying workout stats) ******\n")
         console.log(req.user);
-        console.log(req.isAuthenticated());
 
         //get all of the users tracked exercises
         var trackedExercises = await queryExerciseStats(req.user.athlete_id);
+        // console.log(trackedExercises);
         res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-stats.ejs', { user: req.user,
                                                                             trackedExercises: trackedExercises});
     });
@@ -22,7 +22,7 @@ router.route("/")
 
 router.route("/my-stats")
     .get(ensureAuthentication, async (req, res) => {
-        console.log("\n****** LOADING MY-STATS PAGE ******\n");
+        console.log("\n****** LOADING MY-STATS PAGE FROM dashboard.js ******\n");
         // console.log(req.user);
         // console.log(req.isAuthenticated());
         // console.log(req.user.athlete_first_name);
@@ -30,20 +30,6 @@ router.route("/my-stats")
         var trackedExercises = await queryExerciseStats(req.user.athlete_id);
         res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-stats.ejs', {user: req.user,
             trackedExercises: trackedExercises});
-    });
-
-
-
-router.route("/my-workouts")
-    .get(ensureAuthentication, async (req, res) => {
-        console.log("\n****** LOADING MY-WORKOUTS PAGE FROM DASHBOARD.JS ******\n");
-        // console.log(req.user);
-        // console.log(req.isAuthenticated());
-        // console.log(req.user.athlete_first_name);
-
-        var trackedWorkouts = await queryWorkoutStats(req.user.athlete_id);
-        res.render('/Users/gabe/Desktop/AthleteApp/views/dashboard-my-workouts.ejs', {user: req.user,
-            trackedWorkouts: trackedWorkouts});
     });
 
 
@@ -89,14 +75,18 @@ router.route("/logout")
 
 
 function ensureAuthentication(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    else {
-        req.flash('error', "Please login before continuing!");
-        res.redirect('/login');
-    }
+    // if(req.isAuthenticated()) {
+    //     return next();
+    // }
+    // else {
+    //     req.flash('error', "Please login before continuing!");
+    //     res.redirect('/login');
+    // }
+    return next();
 }
+
+
+
 
 
 //https://stackoverflow.com/questions/58254717/returning-the-result-of-a-node-postgres-query
